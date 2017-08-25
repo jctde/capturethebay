@@ -10,12 +10,19 @@ import lombok.Getter;
  */
 public enum GameState {
 
-    LOBBY(60), INGAME(60*30), END(15);
+    LOBBY(60, 0), INGAME(60*30, 1), END(15, 2);
 
     @Getter
     private Integer time;
 
-    GameState(Integer integer) {
+    private Integer state;
+
+    public Integer toInteger() {
+        return state;
+    }
+
+    GameState(Integer integer, Integer state) {
         this.time = integer;
+        this.state = state;
     }
 }

@@ -17,8 +17,6 @@ import java.util.concurrent.TimeUnit;
 @Getter @Setter
 public class CountdownHandler {
 
-    private Integer[] i = {60, 45, 30, 15, 10, 5, 4, 3, 2, 1};
-
     private GameState gameState;
 
     private boolean running = false;
@@ -68,5 +66,9 @@ public class CountdownHandler {
         this.running = false;
 
         init();
+    }
+
+    public void shutdown() {
+        executorService.shutdown();
     }
 }

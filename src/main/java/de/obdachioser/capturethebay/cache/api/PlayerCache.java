@@ -1,6 +1,7 @@
 package de.obdachioser.capturethebay.cache.api;
 
 import de.obdachioser.capturethebay.api.Team;
+import de.obdachioser.capturethebay.enums.EnumPlayerState;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,5 +21,7 @@ public class PlayerCache {
     private Integer tickets, kills, receivedChests = 0;
     private Team currentTeam = null;
     private String gameDisplayName = "";
+
+    private EnumPlayerState enumPlayerState;
 
 }
