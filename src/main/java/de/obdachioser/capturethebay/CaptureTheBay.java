@@ -2,6 +2,7 @@ package de.obdachioser.capturethebay;
 
 import de.obdachioser.capturethebay.config.CurrentGameWorldConfiguration;
 import de.obdachioser.capturethebay.config.LocaleGameConfiguration;
+import de.obdachioser.capturethebay.listeners.PlayerInteractListener;
 import de.obdachioser.capturethebay.listeners.PlayerJoinListener;
 import de.obdachioser.capturethebay.listeners.PlayerQuitListener;
 import de.obdachioser.capturethebay.sessions.GameSession;
@@ -63,6 +64,7 @@ public class CaptureTheBay extends JavaPlugin {
 
         getServer().getPluginManager().registerEvents(new PlayerJoinListener(), this);
         getServer().getPluginManager().registerEvents(new PlayerQuitListener(), this);
+        getServer().getPluginManager().registerEvents(new PlayerInteractListener(), this);
     }
 
     private void registerCommands() {

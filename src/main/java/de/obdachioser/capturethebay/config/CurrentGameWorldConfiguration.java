@@ -35,10 +35,10 @@ public class CurrentGameWorldConfiguration extends LocaleGameConfiguration {
         this.middleLocation = Bukkit.getWorld(gameWorldName).getSpawnLocation();
     }
 
-    public void apply(List<DefinedTeam> teamList) {
+    public CurrentGameWorldConfiguration apply(List<Team> teams) {
 
-        for(DefinedTeam team : teamList)
-            teamLocations.put(team, locationConverter(getFileConfiguration().getString(team.getName() + ".location")));
+        for(Team team : teams) teamLocations.put(team, new Location(middleLocation.getWorld(), 0, 100, 0));
+        return this;
     }
 
     private Location locationConverter(String value) {

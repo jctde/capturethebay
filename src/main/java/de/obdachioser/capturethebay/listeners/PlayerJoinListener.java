@@ -34,10 +34,12 @@ public class PlayerJoinListener implements Listener {
 
         } else {
 
+            event.getPlayer().getInventory().clear();
+
             event.getPlayer().getInventory().setItem(0, ItemStackCreator.a(Material.GOLD_HELMET, "§eWähle dein Team §7§o(Rechtsklick)"));
             event.getPlayer().getInventory().setItem(8, ItemStackCreator.a(Material.SLIME_BALL, "§cZurück zur Lobby §7§o(Rechtsklick)"));
             event.getPlayer().getInventory().setItem(7, ItemStackCreator.a(Material.NETHER_STAR, "§bArchievments §7§o(Rechtsklick)"));
-            event.getPlayer().getInventory().setItem(5, ItemStackCreator.a(Material.NETHER_STAR, "§aKits §7§o(Rechtsklick)"));
+            event.getPlayer().getInventory().setItem(4, ItemStackCreator.a(Material.CHEST, "§aKits §7§o(Rechtsklick)"));
 
             event.getPlayer().setFlying(false);
             event.getPlayer().setAllowFlight(false);
@@ -45,7 +47,6 @@ public class PlayerJoinListener implements Listener {
             event.getPlayer().setHealth(20);
             event.getPlayer().setFoodLevel(20);
 
-            event.getPlayer().getInventory().clear();
             event.getPlayer().getInventory().setArmorContents(new ItemStack[] {null, null, null, null});
 
             event.getPlayer().getActivePotionEffects().clear();

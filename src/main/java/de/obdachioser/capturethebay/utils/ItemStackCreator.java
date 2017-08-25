@@ -51,7 +51,26 @@ public class ItemStackCreator {
         itemStack.setItemMeta(itemMeta);
 
         return itemStack;
+    }
 
+    public static ItemStack a(Material material, Short s, String name, String[] lore) {
+
+        ItemStack itemStack = new ItemStack(material, 1, s);
+        ItemMeta itemMeta = itemStack.getItemMeta();
+
+        itemMeta.setDisplayName(name);
+        itemMeta.setLore(Lists.newArrayList(lore));
+
+        itemMeta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE);
+        itemMeta.addItemFlags(ItemFlag.HIDE_DESTROYS);
+        itemMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+        itemMeta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
+
+        itemMeta.spigot().setUnbreakable(true);
+
+        itemStack.setItemMeta(itemMeta);
+
+        return itemStack;
     }
 
     public static ItemStack b(ItemStack itemStack, String name) {
@@ -67,6 +86,17 @@ public class ItemStackCreator {
 
         ItemMeta itemMeta = itemStack.getItemMeta();
         itemMeta.setLore(Lists.newArrayList(lore));
+
+        itemStack.setItemMeta(itemMeta);
+        return itemStack;
+    }
+
+    public static ItemStack c() {
+
+        ItemStack itemStack = new ItemStack(Material.STAINED_GLASS_PANE, 1, (short) 0);
+        ItemMeta itemMeta = itemStack.getItemMeta();
+
+        itemMeta.setDisplayName("");
 
         itemStack.setItemMeta(itemMeta);
         return itemStack;

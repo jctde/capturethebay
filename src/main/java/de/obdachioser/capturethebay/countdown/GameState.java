@@ -10,7 +10,7 @@ import lombok.Getter;
  */
 public enum GameState {
 
-    LOBBY(60, 0), INGAME(60*30, 1), END(15, 2);
+    LOBBY(61, 0), INGAME((60*30)+1, 1), END(16, 2);
 
     @Getter
     private Integer time;

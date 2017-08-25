@@ -12,16 +12,20 @@ import org.bukkit.inventory.ItemStack;
  */
 public enum TeamColor {
 
-    RED("§4", "Rot"),
-    GREEN("§3", "Grün"),
-    BLUE("§1", "Blau"),
-    YELLOW("§3", "Grün");
+    RED("§4", "Rot", (short) 14),
+    GREEN("§3", "Grün", (short) 13),
+    BLUE("§1", "Blau", (short) 11),
+    YELLOW("§3", "Grün", (short) 4);
 
     @Getter
     private String color, colorName;
 
-    TeamColor(String c, String cname) {
+    @Getter
+    private Short subId;
+
+    TeamColor(String c, String cname, Short subid) {
         this.color = c;
         this.colorName = cname;
+        this.subId = subid;
     }
 }

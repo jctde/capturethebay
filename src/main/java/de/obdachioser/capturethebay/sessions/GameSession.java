@@ -1,5 +1,7 @@
 package de.obdachioser.capturethebay.sessions;
 
+import de.obdachioser.capturethebay.api.DefinedTeam;
+import de.obdachioser.capturethebay.api.TeamColor;
 import de.obdachioser.capturethebay.api.Teams;
 import de.obdachioser.capturethebay.cache.CacheConsumer;
 import de.obdachioser.capturethebay.cache.CacheHandler;
@@ -41,6 +43,10 @@ public class GameSession {
             return new PlayerCache(0, 0, 0, 0, 5,null,
                     "§f" + player.getName(), (currentGameState.toInteger() > 0 ? EnumPlayerState.SPECTATOR : EnumPlayerState.PLAYER));
         });
+
+        teams.createNewTeam(new DefinedTeam(TeamColor.RED));
+        teams.createNewTeam(new DefinedTeam(TeamColor.BLUE));
+        teams.createNewTeam(new DefinedTeam(TeamColor.GREEN));
     }
 
     public void startSession() {
