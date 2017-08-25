@@ -32,11 +32,16 @@ public class LocaleGameConfiguration {
 
                 file.mkdir();
                 file.mkdir();
+                file.mkdir();
 
                 file.createNewFile();
             }
 
             this.fileConfiguration = YamlConfiguration.loadConfiguration(file);
+
+            if(!this.fileConfiguration.contains("gameworld")) {
+                fileConfiguration.set("gameworld", "world");
+            }
 
         } catch (Exception exc) {
             exc.printStackTrace();

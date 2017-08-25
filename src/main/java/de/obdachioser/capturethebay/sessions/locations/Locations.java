@@ -18,6 +18,6 @@ public class Locations {
     private static Location spawnLocation = Bukkit.getWorld("world").getSpawnLocation();
 
     @Getter
-    private static CurrentGameWorldConfiguration currentGameWorldConfiguration = CaptureTheBay.getCurrentGameWorldConfiguration();
+    private static CurrentGameWorldConfiguration currentGameWorldConfiguration = new CurrentGameWorldConfiguration();
 
 }

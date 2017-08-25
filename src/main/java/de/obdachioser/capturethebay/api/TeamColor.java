@@ -1,6 +1,8 @@
 package de.obdachioser.capturethebay.api;
 
 import lombok.Getter;
+import org.bukkit.Material;
+import org.bukkit.inventory.ItemStack;
 
 /**
  * Created by ObdachIoser at 14:03 on 25.08.2017.

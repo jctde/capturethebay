@@ -11,6 +11,8 @@ import org.bukkit.WorldCreator;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by ObdachIoser at 15:17 on 25.08.2017.
@@ -29,13 +31,7 @@ public class CurrentGameWorldConfiguration extends LocaleGameConfiguration {
 
     public CurrentGameWorldConfiguration() {
 
-        this.gameWorldName = getFileConfiguration().getString("gameworld");
-
-        if(!Bukkit.getWorlds().contains(Bukkit.getWorld(gameWorldName))) {
-
-            Bukkit.createWorld(new WorldCreator(gameWorldName));
-        }
-
+        this.gameWorldName = "world";
         this.middleLocation = Bukkit.getWorld(gameWorldName).getSpawnLocation();
     }
 

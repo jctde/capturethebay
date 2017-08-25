@@ -26,7 +26,9 @@ public class CountdownHandler {
 
     public CountdownHandler(GameState startState, CountdownInitializer countdownInitializer) {
 
-        this.time = gameState.getTime();
+        this.gameState = startState;
+        this.time = startState.getTime();
+
         this.countdownInitializer = countdownInitializer;
     }
 

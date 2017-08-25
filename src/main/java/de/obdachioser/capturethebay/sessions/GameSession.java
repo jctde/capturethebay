@@ -38,10 +38,9 @@ public class GameSession {
         playerCacheCacheHandler = new CacheHandler((operator) -> {
 
             Player player = Bukkit.getPlayer((UUID) operator);
-            return new PlayerCache(0, 0, 0, null,
+            return new PlayerCache(0, 0, 0, 0, 5,null,
                     "§f" + player.getName(), (currentGameState.toInteger() > 0 ? EnumPlayerState.SPECTATOR : EnumPlayerState.PLAYER));
         });
-
     }
 
     public void startSession() {
@@ -51,5 +50,4 @@ public class GameSession {
     public void stopSession() {
         countdownHandler.shutdown();
     }
-
 }

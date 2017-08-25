@@ -2,6 +2,8 @@ package de.obdachioser.capturethebay;
 
 import de.obdachioser.capturethebay.config.CurrentGameWorldConfiguration;
 import de.obdachioser.capturethebay.config.LocaleGameConfiguration;
+import de.obdachioser.capturethebay.listeners.PlayerJoinListener;
+import de.obdachioser.capturethebay.listeners.PlayerQuitListener;
 import de.obdachioser.capturethebay.sessions.GameSession;
 import lombok.Getter;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -40,15 +42,30 @@ public class CaptureTheBay extends JavaPlugin {
 
         gameSession = new GameSession();
 
-        localeGameConfiguration = new CurrentGameWorldConfiguration();
-        localeGameConfiguration.apply(new File("plugins/CaptureTheBay", "config.yml"));
+//        localeGameConfiguration = new CurrentGameWorldConfiguration();
+//        localeGameConfiguration.apply(new File("plugins/CaptureTheBay", "config.yml"));
 
-        currentGameWorldConfiguration = (CurrentGameWorldConfiguration) localeGameConfiguration;
+//        currentGameWorldConfiguration = (CurrentGameWorldConfiguration) localeGameConfiguration;
+        gameSession.startSession();
 
+        System.out.println("[CaptureTheBay] Game was started");
+
+        registerListeners();
+        registerCommands();
     }
 
     @Override
     public void onDisable() {
+        gameSession.stopSession();
+    }
+
+    private void registerListeners() {
+
+        getServer().getPluginManager().registerEvents(new PlayerJoinListener(), this);
+        getServer().getPluginManager().registerEvents(new PlayerQuitListener(), this);
+    }
+
+    private void registerCommands() {
 
     }
 }

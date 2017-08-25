@@ -18,7 +18,7 @@ import lombok.Setter;
 @Getter @Setter
 public class PlayerCache {
 
-    private Integer tickets, kills, receivedChests = 0;
+    private Integer tickets, kills, receivedChests = 0, deaths, lives;
     private Team currentTeam = null;
     private String gameDisplayName = "";
 

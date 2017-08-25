@@ -14,7 +14,6 @@ import java.util.List;
  */
 public class SimpleCountdownInitializer implements CountdownInitializer {
 
-
     private List<Integer> i = Lists.newArrayList(60, 45, 30, 15, 10, 5, 4, 3, 2, 1);
 
     @Override
@@ -22,7 +21,7 @@ public class SimpleCountdownInitializer implements CountdownInitializer {
 
         Bukkit.broadcastMessage("Time: " + time);
 
-        if(i.contains(time)) {
+        if(i.contains(time) && Bukkit.getOnlinePlayers().size() > 0) {
             Bukkit.broadcastMessage(CaptureTheBay.getPrefix() + "Das Spiel beginnt in §e" + time + " " + (time == 1 ? "Sekunde" : "Sekunden") + "§7!");
         }
     }

@@ -17,4 +17,5 @@ public class Inventorys {
     @Getter
     private static HashMap<EnumInventoryType, Inventory> inventoryTypeInventoryHashMap = Maps.newHashMap();
 
+    public static void a() {}
 }
