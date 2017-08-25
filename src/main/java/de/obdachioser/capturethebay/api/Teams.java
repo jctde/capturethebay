@@ -44,7 +44,7 @@ public class Teams {
 
         while(returnTeam == null) {
 
-            for(Team team : all0()) if(team.size() < i) returnTeam = team;
+            for(Team team : all0()) if((team.size()-1) < i) returnTeam = team;
             if(returnTeam == null) i++;
         }
 

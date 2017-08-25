@@ -2,9 +2,7 @@ package de.obdachioser.capturethebay;
 
 import de.obdachioser.capturethebay.config.CurrentGameWorldConfiguration;
 import de.obdachioser.capturethebay.config.LocaleGameConfiguration;
-import de.obdachioser.capturethebay.listeners.PlayerInteractListener;
-import de.obdachioser.capturethebay.listeners.PlayerJoinListener;
-import de.obdachioser.capturethebay.listeners.PlayerQuitListener;
+import de.obdachioser.capturethebay.listeners.*;
 import de.obdachioser.capturethebay.sessions.GameSession;
 import lombok.Getter;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -65,6 +63,13 @@ public class CaptureTheBay extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new PlayerJoinListener(), this);
         getServer().getPluginManager().registerEvents(new PlayerQuitListener(), this);
         getServer().getPluginManager().registerEvents(new PlayerInteractListener(), this);
+
+        getServer().getPluginManager().registerEvents(new BlockBreakListener(), this);
+        getServer().getPluginManager().registerEvents(new BlockPlaceListener(), this);
+        getServer().getPluginManager().registerEvents(new PlayerInteractListener(), this);
+
+        getServer().getPluginManager().registerEvents(new PlayerDeathListener(),this);
+        getServer().getPluginManager().registerEvents(new PlayerDeathListener(),this);
     }
 
     private void registerCommands() {

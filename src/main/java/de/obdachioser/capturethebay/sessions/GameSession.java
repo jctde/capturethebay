@@ -10,6 +10,7 @@ import de.obdachioser.capturethebay.countdown.CountdownHandler;
 import de.obdachioser.capturethebay.countdown.GameState;
 import de.obdachioser.capturethebay.countdown.SimpleCountdownInitializer;
 import de.obdachioser.capturethebay.enums.EnumPlayerState;
+import de.obdachioser.capturethebay.scoreboard.ScoreboardHandler;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.Bukkit;
@@ -34,6 +35,18 @@ public class GameSession {
     private CountdownHandler countdownHandler = new CountdownHandler(GameState.LOBBY, new SimpleCountdownInitializer());
 
     private GameState currentGameState = GameState.LOBBY;
+
+    private ScoreboardHandler scoreboardHandler = new ScoreboardHandler(
+            "§f§lAIOHUB.NET",
+            "§1",
+            " §fMap",
+            " §b%map%",
+            "§2",
+            " §7Teams",
+            "  §cVerboten",
+            "§3");
+
+    private Integer maxplayers = 15;
 
     public GameSession() {
 

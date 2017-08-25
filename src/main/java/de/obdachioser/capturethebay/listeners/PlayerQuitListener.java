@@ -34,6 +34,7 @@ public class PlayerQuitListener implements Listener {
         CaptureTheBay.getGameSession().getPlayerCacheCacheHandler().remove(event.getPlayer().getUniqueId());
 
         if(CaptureTheBay.getGameSession().getCurrentGameState() == GameState.LOBBY || CaptureTheBay.getGameSession().getCurrentGameState() == GameState.END)
-            Bukkit.broadcastMessage(CaptureTheBay.getPrefix() + "§f" + event.getPlayer().getName() + " §7hat das Spiel verlassen. §7[§f" + Bukkit.getOnlinePlayers().size() + "§7/15]");
+            Bukkit.broadcastMessage(CaptureTheBay.getPrefix() + "§f" + event.getPlayer().getName() + " §7hat das Spiel verlassen. §7[§f"
+                    + Bukkit.getOnlinePlayers().size() + "§7/"+CaptureTheBay.getGameSession().getMaxplayers()+"]");
     }
 }

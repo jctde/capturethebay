@@ -1,10 +1,14 @@
 package de.obdachioser.capturethebay.countdown;
 
+import de.obdachioser.capturethebay.events.GameStateChangeEvent;
+import jdk.nashorn.internal.runtime.ECMAException;
 import lombok.Getter;
 import lombok.Setter;
+import org.bukkit.Bukkit;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -50,12 +54,12 @@ public class CountdownHandler {
                     countdownInitializer.handle(time);
                 }
 
+                running = false;
+
             } catch (Exception exc) {
                 exc.printStackTrace();
             }
-
         });
-
     }
 
     public void reset() {
@@ -64,9 +68,18 @@ public class CountdownHandler {
 
     public void switchState(GameState gameState) {
 
-        this.gameState = gameState;
-        this.running = false;
+        GameState old = this.gameState;
 
+        this.gameState = gameState;
+        this.time = gameState.getTime();
+
+        if(running) {
+
+           this.shutdown();
+           this.executorService = Executors.newSingleThreadExecutor();
+        }
+
+        Bukkit.getPluginManager().callEvent(new GameStateChangeEvent(old, this.gameState));
         init();
     }
 

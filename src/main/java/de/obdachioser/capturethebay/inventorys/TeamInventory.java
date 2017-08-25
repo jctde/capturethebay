@@ -2,6 +2,7 @@ package de.obdachioser.capturethebay.inventorys;
 
 import de.obdachioser.capturethebay.CaptureTheBay;
 import de.obdachioser.capturethebay.api.DefinedTeam;
+import de.obdachioser.capturethebay.enums.EnumInventoryType;
 import de.obdachioser.capturethebay.utils.ItemStackCreator;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -17,6 +18,10 @@ public class TeamInventory implements DefinedInventory {
 
     private Inventory inventory;
     private Integer slots[] = {19, 22, 25};
+
+    public TeamInventory() {
+        Inventorys.getInventoryTypeInventoryHashMap().put(EnumInventoryType.TEAMS_INVENTORY, this);
+    }
 
     @Override
     public void prepare() {
@@ -43,7 +48,7 @@ public class TeamInventory implements DefinedInventory {
 
     @Override
     public Inventory get() {
-        return null;
+        return inventory;
     }
 
     @Override

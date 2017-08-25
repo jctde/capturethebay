@@ -37,7 +37,7 @@ public class SimpleCountdownInitializer implements CountdownInitializer {
 
     private void handleLobbyState(Integer time) {
 
-        if(i.contains(time) && Bukkit.getOnlinePlayers().size() > 0) {
+        if(i.contains(time) && Bukkit.getOnlinePlayers().size() > CaptureTheBay.getGameSession().getMaxplayers()) {
 
             Bukkit.broadcastMessage(CaptureTheBay.getPrefix() + "Das Spiel beginnt in §e" + time + " " + (time == 1 ? "Sekunde" : "Sekunden") + "§7!");
 
@@ -45,11 +45,16 @@ public class SimpleCountdownInitializer implements CountdownInitializer {
 
         } else if(time == 45) {
 
-            Bukkit.broadcastMessage(CaptureTheBay.getPrefix() + "§cWarten auf Spieler...");
+            Bukkit.broadcastMessage(CaptureTheBay.getPrefix() + "§cWarten auf weitere Spieler...");
             CaptureTheBay.getGameSession().getCountdownHandler().reset();
 
             Bukkit.getOnlinePlayers().forEach(player -> player.setLevel(0));
             return;
+        } else if(time < 45 && Bukkit.getOnlinePlayers().size() < CaptureTheBay.getGameSession().getMaxplayers()) {
+
+            Bukkit.broadcastMessage(CaptureTheBay.getPrefix() + "§cWarten auf weitere Spieler...");
+            CaptureTheBay.getGameSession().getCountdownHandler().reset();
+            Bukkit.getOnlinePlayers().forEach(player -> player.setLevel(0));
         }
 
         if(time == 0 &&  Bukkit.getOnlinePlayers().size() > 0) {
@@ -68,6 +73,8 @@ public class SimpleCountdownInitializer implements CountdownInitializer {
 
                 player.teleport(Locations.getCurrentGameWorldConfiguration().getTeamLocations().get(cache.getCurrentTeam()));
             });
+
+            Bukkit.getOnlinePlayers().forEach(player -> player.setLevel(0));
 
             return;
         }

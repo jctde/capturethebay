@@ -1,5 +1,6 @@
 package de.obdachioser.capturethebay.listeners;
 
+import com.google.common.collect.Maps;
 import de.obdachioser.capturethebay.CaptureTheBay;
 import de.obdachioser.capturethebay.api.PlayerStates;
 import de.obdachioser.capturethebay.countdown.GameState;
@@ -13,6 +14,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.ItemStack;
+
+import java.util.HashMap;
 
 /**
  * Created by ObdachIoser at 15:11 on 25.08.2017.
@@ -47,6 +50,12 @@ public class PlayerJoinListener implements Listener {
             event.getPlayer().setHealth(20);
             event.getPlayer().setFoodLevel(20);
 
+            HashMap<String, String> replacements = Maps.newHashMap();
+            replacements.put("%map%", "default");
+
+            CaptureTheBay.getGameSession().getScoreboardHandler().setReplacements(replacements);
+            CaptureTheBay.getGameSession().getScoreboardHandler().sendScoreboard(event.getPlayer());
+
             event.getPlayer().getInventory().setArmorContents(new ItemStack[] {null, null, null, null});
 
             event.getPlayer().getActivePotionEffects().clear();
@@ -58,7 +67,8 @@ public class PlayerJoinListener implements Listener {
                 > 0 ? Locations.getCurrentGameWorldConfiguration().getMiddleLocation() : Locations.getSpawnLocation());
 
         if(CaptureTheBay.getGameSession().getCurrentGameState() == GameState.LOBBY || CaptureTheBay.getGameSession().getCurrentGameState() == GameState.END)
-            Bukkit.broadcastMessage(CaptureTheBay.getPrefix() + "§f" + event.getPlayer().getName() + " §7hat das Spiel betreten. §7[§f" + Bukkit.getOnlinePlayers().size() + "§7/15]");
+            Bukkit.broadcastMessage(CaptureTheBay.getPrefix() + "§f" + event.getPlayer().getName() + " §7hat das Spiel betreten. §7[§f" + Bukkit.getOnlinePlayers().size()
+                    + "§7/"+CaptureTheBay.getGameSession().getMaxplayers()+"]");
 
     }
 }
