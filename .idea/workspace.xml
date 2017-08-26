@@ -6,13 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="df76c974-ee3b-46bc-93a7-993ce1adc7a3" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/de/obdachioser/capturethebay/CaptureTheBay.java" afterPath="$PROJECT_DIR$/src/main/java/de/obdachioser/capturethebay/CaptureTheBay.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/de/obdachioser/capturethebay/countdown/SimpleCountdownInitializer.java" afterPath="$PROJECT_DIR$/src/main/java/de/obdachioser/capturethebay/countdown/SimpleCountdownInitializer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/de/obdachioser/capturethebay/inventorys/Inventorys.java" afterPath="$PROJECT_DIR$/src/main/java/de/obdachioser/capturethebay/inventorys/Inventorys.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/de/obdachioser/capturethebay/inventorys/TeamInventory.java" afterPath="$PROJECT_DIR$/src/main/java/de/obdachioser/capturethebay/inventorys/TeamInventory.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/de/obdachioser/capturethebay/listeners/InventoryClickListener.java" afterPath="$PROJECT_DIR$/src/main/java/de/obdachioser/capturethebay/listeners/InventoryClickListener.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/de/obdachioser/capturethebay/listeners/PlayerInteractListener.java" afterPath="$PROJECT_DIR$/src/main/java/de/obdachioser/capturethebay/listeners/PlayerInteractListener.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/de/obdachioser/capturethebay/sessions/GameSession.java" afterPath="$PROJECT_DIR$/src/main/java/de/obdachioser/capturethebay/sessions/GameSession.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -29,7 +23,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/de/obdachioser/capturethebay/listeners/InventoryClickListener.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="323">
-              <caret line="19" column="1" lean-forward="true" selection-start-line="19" selection-start-column="1" selection-end-line="19" selection-end-column="1" />
+              <caret line="19" column="1" lean-forward="false" selection-start-line="19" selection-start-column="1" selection-end-line="19" selection-end-column="1" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#402#403#0" expanded="true" />
@@ -49,7 +43,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CaptureTheBay.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="CaptureTheBay.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/de/obdachioser/capturethebay/CaptureTheBay.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="473">
@@ -61,11 +55,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SimpleCountdownInitializer.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="SimpleCountdownInitializer.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/de/obdachioser/capturethebay/countdown/SimpleCountdownInitializer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="62" column="114" lean-forward="false" selection-start-line="62" selection-start-column="114" selection-end-line="62" selection-end-column="114" />
+            <state relative-caret-position="170">
+              <caret line="62" column="115" lean-forward="true" selection-start-line="62" selection-start-column="115" selection-end-line="62" selection-end-column="115" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -76,8 +70,8 @@
       <file leaf-file-name="GameSession.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/de/obdachioser/capturethebay/sessions/GameSession.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="344">
-              <caret line="64" column="32" lean-forward="true" selection-start-line="64" selection-start-column="32" selection-end-line="64" selection-end-column="32" />
+            <state relative-caret-position="140">
+              <caret line="52" column="35" lean-forward="true" selection-start-line="52" selection-start-column="35" selection-end-line="52" selection-end-column="35" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -101,7 +95,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/de/obdachioser/capturethebay/inventorys/Inventorys.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="289">
-              <caret line="22" column="5" lean-forward="true" selection-start-line="22" selection-start-column="5" selection-end-line="22" selection-end-column="5" />
+              <caret line="22" column="5" lean-forward="false" selection-start-line="22" selection-start-column="5" selection-end-line="22" selection-end-column="5" />
               <folding />
             </state>
           </provider>
@@ -200,13 +194,13 @@
         <option value="$PROJECT_DIR$/src/main/java/de/obdachioser/capturethebay/listeners/PlayerJoinListener.java" />
         <option value="$PROJECT_DIR$/src/main/java/de/obdachioser/capturethebay/scoreboard/ScoreboardHandler.java" />
         <option value="$PROJECT_DIR$/src/main/java/de/obdachioser/capturethebay/projectlisteners/GameStateChangeListener.java" />
-        <option value="$PROJECT_DIR$/src/main/java/de/obdachioser/capturethebay/countdown/SimpleCountdownInitializer.java" />
         <option value="$PROJECT_DIR$/src/main/java/de/obdachioser/capturethebay/inventorys/Inventorys.java" />
         <option value="$PROJECT_DIR$/src/main/java/de/obdachioser/capturethebay/inventorys/TeamInventory.java" />
         <option value="$PROJECT_DIR$/src/main/java/de/obdachioser/capturethebay/sessions/GameSession.java" />
         <option value="$PROJECT_DIR$/src/main/java/de/obdachioser/capturethebay/listeners/PlayerInteractListener.java" />
         <option value="$PROJECT_DIR$/src/main/java/de/obdachioser/capturethebay/listeners/InventoryClickListener.java" />
         <option value="$PROJECT_DIR$/src/main/java/de/obdachioser/capturethebay/CaptureTheBay.java" />
+        <option value="$PROJECT_DIR$/src/main/java/de/obdachioser/capturethebay/countdown/SimpleCountdownInitializer.java" />
       </list>
     </option>
   </component>
@@ -584,7 +578,14 @@
       <option name="project" value="LOCAL" />
       <updated>1503705430187</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Fixed Bugs">
+      <created>1503706746106</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1503706746106</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -625,7 +626,8 @@
     <MESSAGE value="First stable version" />
     <MESSAGE value="Updated Counter and Added ItemInteract" />
     <MESSAGE value="Fixed Bugs and Added Events and Listeners" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed Bugs and Added Events and Listeners" />
+    <MESSAGE value="Fixed Bugs" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed Bugs" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -961,16 +963,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/de/obdachioser/capturethebay/countdown/SimpleCountdownInitializer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="62" column="114" lean-forward="false" selection-start-line="62" selection-start-column="114" selection-end-line="62" selection-end-column="114" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/de/obdachioser/capturethebay/inventorys/TeamInventory.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
@@ -984,18 +976,8 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/de/obdachioser/capturethebay/inventorys/Inventorys.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="289">
-          <caret line="22" column="5" lean-forward="true" selection-start-line="22" selection-start-column="5" selection-end-line="22" selection-end-column="5" />
+          <caret line="22" column="5" lean-forward="false" selection-start-line="22" selection-start-column="5" selection-end-line="22" selection-end-column="5" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/de/obdachioser/capturethebay/sessions/GameSession.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="344">
-          <caret line="64" column="32" lean-forward="true" selection-start-line="64" selection-start-column="32" selection-end-line="64" selection-end-column="32" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1012,7 +994,7 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/de/obdachioser/capturethebay/listeners/InventoryClickListener.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
-          <caret line="19" column="1" lean-forward="true" selection-start-line="19" selection-start-column="1" selection-end-line="19" selection-end-column="1" />
+          <caret line="19" column="1" lean-forward="false" selection-start-line="19" selection-start-column="1" selection-end-line="19" selection-end-column="1" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#402#403#0" expanded="true" />
@@ -1025,6 +1007,26 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="473">
           <caret line="74" column="82" lean-forward="false" selection-start-line="74" selection-start-column="82" selection-end-line="74" selection-end-column="82" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/de/obdachioser/capturethebay/sessions/GameSession.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="140">
+          <caret line="52" column="35" lean-forward="true" selection-start-line="52" selection-start-column="35" selection-end-line="52" selection-end-column="35" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/de/obdachioser/capturethebay/countdown/SimpleCountdownInitializer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="62" column="115" lean-forward="true" selection-start-line="62" selection-start-column="115" selection-end-line="62" selection-end-column="115" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
