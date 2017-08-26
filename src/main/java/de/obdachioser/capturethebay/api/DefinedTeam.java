@@ -8,6 +8,7 @@ import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.function.Consumer;
@@ -67,5 +68,15 @@ public class DefinedTeam implements Team {
 
         playerCache.setGameDisplayName("§f" + player.getName());
         Bukkit.getPluginManager().callEvent(new TeamActionEvent(player, TeamActionEvent.EnumTeamAction.TEAM_LEAVE, this));
+    }
+
+    @Override
+    public Player get(Integer i) {
+        return playerList.get(i);
+    }
+
+    @Override
+    public List<Player> getList() {
+        return playerList;
     }
 }

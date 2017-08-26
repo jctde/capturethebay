@@ -19,7 +19,7 @@ public class Inventorys {
     private static HashMap<EnumInventoryType, DefinedInventory> inventoryTypeInventoryHashMap = Maps.newHashMap();
 
     public static void prepareAll() {
-        for(DefinedInventory definedInventory : inventoryTypeInventoryHashMap.values())  definedInventory.prepare();
+        for(DefinedInventory definedInventory : inventoryTypeInventoryHashMap.values()) definedInventory.prepare();
     }
 
 }

@@ -1,10 +1,15 @@
 package de.obdachioser.capturethebay.cache.api;
 
+import com.google.common.collect.Maps;
 import de.obdachioser.capturethebay.api.Team;
+import de.obdachioser.capturethebay.enums.EnumPlayerInventoryType;
 import de.obdachioser.capturethebay.enums.EnumPlayerState;
+import de.obdachioser.capturethebay.inventorys.PlayerInventory;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.HashMap;
 
 /**
  * Created by ObdachIoser at 14:22 on 25.08.2017.
@@ -23,5 +28,7 @@ public class PlayerCache {
     private String gameDisplayName = "";
 
     private EnumPlayerState enumPlayerState;
+
+    private HashMap<EnumPlayerInventoryType, PlayerInventory> playerInventoryMap = Maps.newHashMap();
 
 }

@@ -6,6 +6,7 @@ import de.obdachioser.capturethebay.enums.EnumInventoryType;
 import de.obdachioser.capturethebay.inventorys.Inventorys;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
@@ -24,6 +25,12 @@ public class PlayerInteractListener implements Listener {
     @EventHandler
     public void playerInteract(PlayerInteractEvent event) {
 
+        if(CaptureTheBay.getGameSession().getCurrentGameState() == GameState.LOBBY ||
+                CaptureTheBay.getGameSession().getCurrentGameState() == GameState.END) {
+
+            event.setCancelled(true);
+        }
+
         if(event.getAction().equals(Action.RIGHT_CLICK_AIR) || event.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
 
             if(event.getItem() == null || event.getItem().getType() == Material.AIR) return;
@@ -32,6 +39,8 @@ public class PlayerInteractListener implements Listener {
 
 
                 if(event.getItem().getType().equals(Material.GOLD_HELMET)) {
+
+                    event.getPlayer().playSound(event.getPlayer().getEyeLocation(), Sound.CHEST_OPEN, 1F, 1F);
 
                     event.getPlayer().openInventory(Inventorys.getInventoryTypeInventoryHashMap().get(EnumInventoryType.TEAMS_INVENTORY).get());
                     event.setCancelled(true);

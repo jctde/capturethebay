@@ -73,6 +73,7 @@ public class CaptureTheBay extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new PlayerDropItemListener(), this);
         getServer().getPluginManager().registerEvents(new FoodLevelChangeListener(), this);
         getServer().getPluginManager().registerEvents(new InventoryClickListener(), this);
+        getServer().getPluginManager().registerEvents(new InventoryCloseListener(), this);
     }
 
     private void registerCommands() {

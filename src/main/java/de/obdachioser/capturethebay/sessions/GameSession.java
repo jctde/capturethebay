@@ -1,5 +1,6 @@
 package de.obdachioser.capturethebay.sessions;
 
+import com.google.common.collect.Maps;
 import de.obdachioser.capturethebay.api.DefinedTeam;
 import de.obdachioser.capturethebay.api.TeamColor;
 import de.obdachioser.capturethebay.api.Teams;
@@ -10,9 +11,15 @@ import de.obdachioser.capturethebay.countdown.CountdownHandler;
 import de.obdachioser.capturethebay.countdown.GameState;
 import de.obdachioser.capturethebay.countdown.SimpleCountdownInitializer;
 import de.obdachioser.capturethebay.enums.EnumInventoryType;
+import de.obdachioser.capturethebay.enums.EnumPlayerInventoryType;
 import de.obdachioser.capturethebay.enums.EnumPlayerState;
 import de.obdachioser.capturethebay.inventorys.Inventorys;
+import de.obdachioser.capturethebay.inventorys.KitsInventory;
+import de.obdachioser.capturethebay.inventorys.PlayerInventory;
 import de.obdachioser.capturethebay.inventorys.TeamInventory;
+import de.obdachioser.capturethebay.kits.Kits;
+import de.obdachioser.capturethebay.kits.kits.Mensch;
+import de.obdachioser.capturethebay.kits.kits.Pirat;
 import de.obdachioser.capturethebay.scoreboard.ScoreboardHandler;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,6 +27,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import sun.misc.Cache;
 
+import java.util.HashMap;
 import java.util.UUID;
 
 /**
@@ -45,8 +53,8 @@ public class GameSession {
             " §fMap",
             " §b%map%",
             "§2",
-            " §7Teams",
-            "  §cVerboten",
+            " §fTeam",
+            " §ckein Team",
             "§3");
 
     private Integer maxplayers = 15;
@@ -57,23 +65,45 @@ public class GameSession {
         playerCacheCacheHandler = new CacheHandler((operator) -> {
 
             Player player = Bukkit.getPlayer((UUID) operator);
+
+            HashMap<EnumPlayerInventoryType, PlayerInventory> playerInventorys = Maps.newHashMap();
+            playerInventorys.put(EnumPlayerInventoryType.PLAYER_KITS, new KitsInventory(player));
+
             return new PlayerCache(0, 0, 0, 0, 5,null,
-                    "§f" + player.getName(), (currentGameState.toInteger() > 0 ? EnumPlayerState.SPECTATOR : EnumPlayerState.PLAYER));
+                    "§f" + player.getName(),
+                    (currentGameState.toInteger() > 0 ? EnumPlayerState.SPECTATOR : EnumPlayerState.PLAYER),
+                    playerInventorys);
         });
+
+        registerTeams();
+    }
+
+    public void startSession() {
+
+        countdownHandler.init();
 
         Inventorys.getInventoryTypeInventoryHashMap().put(EnumInventoryType.TEAMS_INVENTORY, new TeamInventory());
         Inventorys.prepareAll();
 
-        teams.createNewTeam(new DefinedTeam(TeamColor.RED));
-        teams.createNewTeam(new DefinedTeam(TeamColor.BLUE));
-        teams.createNewTeam(new DefinedTeam(TeamColor.GREEN));
-    }
-
-    public void startSession() {
-        countdownHandler.init();
+        registerKits();
     }
 
     public void stopSession() {
         countdownHandler.shutdown();
+    }
+
+    private void registerTeams() {
+
+        teams.createNewTeam(new DefinedTeam(TeamColor.RED));
+        teams.createNewTeam(new DefinedTeam(TeamColor.BLUE));
+        teams.createNewTeam(new DefinedTeam(TeamColor.GREEN));
+
+    }
+
+    private void registerKits() {
+
+        Kits.addKit(new Pirat());
+        Kits.addKit(new Mensch());
+
     }
 }

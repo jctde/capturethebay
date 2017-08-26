@@ -26,8 +26,6 @@ public class ItemStackCreator {
         itemMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
         itemMeta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
 
-        itemMeta.spigot().setUnbreakable(true);
-
         itemStack.setItemMeta(itemMeta);
 
         return itemStack;
@@ -46,8 +44,6 @@ public class ItemStackCreator {
         itemMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
         itemMeta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
 
-        itemMeta.spigot().setUnbreakable(true);
-
         itemStack.setItemMeta(itemMeta);
 
         return itemStack;
@@ -65,8 +61,6 @@ public class ItemStackCreator {
         itemMeta.addItemFlags(ItemFlag.HIDE_DESTROYS);
         itemMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
         itemMeta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
-
-        itemMeta.spigot().setUnbreakable(true);
 
         itemStack.setItemMeta(itemMeta);
 
@@ -95,8 +89,7 @@ public class ItemStackCreator {
 
         ItemStack itemStack = new ItemStack(Material.STAINED_GLASS_PANE, 1, (short) 0);
         ItemMeta itemMeta = itemStack.getItemMeta();
-
-        itemMeta.setDisplayName("");
+        itemMeta.setDisplayName("§c");
 
         itemStack.setItemMeta(itemMeta);
         return itemStack;

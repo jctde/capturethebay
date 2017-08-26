@@ -37,7 +37,7 @@ public class ScoreboardHandler {
     public ScoreboardHandler(String name, String... index) {
 
         this.scoreboardName = name;
-        this.index = Arrays.asList(index);
+        this.index = Lists.newArrayList(index);
 
         initializeScoreboard();
     }
@@ -89,27 +89,14 @@ public class ScoreboardHandler {
         }
     }
 
-    public void updateScore(Player player, String oldScore, String newScore) {
+    public void updateScore(Player player, Integer i, String newScore, String old) {
 
-        Integer r = 0;
-
-        for (ScoreboardScore score : scoreboard.getScores()) {
-
-            if (score.getPlayerName().equals(oldScore)) {
-
-                r = score.getScore();
-                scoreboard.handlePlayerRemoved(score.getPlayerName());
-            }
-        }
+        scoreboard.resetPlayerScores(old, scoreboardObjective);
 
         ScoreboardScore scoreboardScore = new ScoreboardScore(scoreboard, scoreboardObjective, newScore);
-        for (Integer i = 0; i != r; i++) scoreboardScore.addScore(1);
+        scoreboardScore.setScore(i);
 
-        PacketPlayOutScoreboardScore packetPlayOutScoreboardScore = new PacketPlayOutScoreboardScore(scoreboardScore);
-
-        ((CraftPlayer) player).getHandle().playerConnection.sendPacket(packetPlayOutScoreboardScore);
-
-        scoreboardScore.setScore(r);
+        ((CraftPlayer) player).getHandle().playerConnection.sendPacket(new PacketPlayOutScoreboardScore(scoreboardScore));
     }
 
     private List<String> replaceReplacements() {

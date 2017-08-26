@@ -28,6 +28,8 @@ public class PlayerJoinListener implements Listener {
     @EventHandler
     public void playerJoin(PlayerJoinEvent event) {
 
+        event.setJoinMessage(null);
+
         CaptureTheBay.getGameSession().getPlayerCacheCacheHandler().add(event.getPlayer().getUniqueId());
 
         if(CaptureTheBay.getGameSession().getCurrentGameState().toInteger() > 0) {
@@ -56,7 +58,8 @@ public class PlayerJoinListener implements Listener {
             CaptureTheBay.getGameSession().getScoreboardHandler().setReplacements(replacements);
             CaptureTheBay.getGameSession().getScoreboardHandler().sendScoreboard(event.getPlayer());
 
-            event.getPlayer().getInventory().setArmorContents(new ItemStack[] {null, null, null, null});
+            event.getPlayer().getInventory().setArmorContents(new ItemStack[] {
+                    null, null, null, ItemStackCreator.a(Material.CHAINMAIL_HELMET, "§bSchutzhelm")});
 
             event.getPlayer().getActivePotionEffects().clear();
         }

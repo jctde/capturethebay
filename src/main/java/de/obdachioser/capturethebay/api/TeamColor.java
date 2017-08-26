@@ -13,7 +13,7 @@ import org.bukkit.inventory.ItemStack;
 public enum TeamColor {
 
     RED("§4", "Rot", (short) 14),
-    GREEN("§3", "Grün", (short) 13),
+    GREEN("§2", "Grün", (short) 13),
     BLUE("§1", "Blau", (short) 11),
     YELLOW("§3", "Grün", (short) 4);
 

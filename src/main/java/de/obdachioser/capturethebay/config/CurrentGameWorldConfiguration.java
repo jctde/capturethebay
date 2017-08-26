@@ -11,6 +11,7 @@ import org.bukkit.WorldCreator;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
@@ -37,7 +38,9 @@ public class CurrentGameWorldConfiguration extends LocaleGameConfiguration {
 
     public CurrentGameWorldConfiguration apply(List<Team> teams) {
 
-        for(Team team : teams) teamLocations.put(team, new Location(middleLocation.getWorld(), 0, 100, 0));
+        Random random = new Random();
+
+        for(Team team : teams) teamLocations.put(team, new Location(middleLocation.getWorld(), random.nextInt(50), 100, random.nextInt(50)));
         return this;
     }
 

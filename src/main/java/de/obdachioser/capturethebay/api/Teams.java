@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import lombok.Getter;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
@@ -25,8 +26,8 @@ public class Teams {
         return definedTeam;
     }
 
-    public List<DefinedTeam> all() {
-        return Lists.newArrayList(teamMap.values());
+    public Collection<DefinedTeam> all() {
+        return teamMap.values();
     }
 
     public List<Team> all0() {
@@ -44,11 +45,11 @@ public class Teams {
 
         while(returnTeam == null) {
 
-            for(Team team : all0()) if((team.size()-1) < i) returnTeam = team;
+            for(Team team : all0()) if(team.size() < i) return returnTeam;
             if(returnTeam == null) i++;
         }
 
-        return returnTeam;
+        return null;
     }
 
     public DefinedTeam getDefinedTeam(String name) {
