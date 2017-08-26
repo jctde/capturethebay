@@ -19,9 +19,7 @@ public class TeamInventory implements DefinedInventory {
     private Inventory inventory;
     private Integer slots[] = {19, 22, 25};
 
-    public TeamInventory() {
-        Inventorys.getInventoryTypeInventoryHashMap().put(EnumInventoryType.TEAMS_INVENTORY, this);
-    }
+    public TeamInventory() {}
 
     @Override
     public void prepare() {

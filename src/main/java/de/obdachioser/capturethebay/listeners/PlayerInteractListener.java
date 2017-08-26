@@ -2,6 +2,8 @@ package de.obdachioser.capturethebay.listeners;
 
 import de.obdachioser.capturethebay.CaptureTheBay;
 import de.obdachioser.capturethebay.countdown.GameState;
+import de.obdachioser.capturethebay.enums.EnumInventoryType;
+import de.obdachioser.capturethebay.inventorys.Inventorys;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
@@ -31,7 +33,7 @@ public class PlayerInteractListener implements Listener {
 
                 if(event.getItem().getType().equals(Material.GOLD_HELMET)) {
 
-                    Bukkit.broadcastMessage("TEAMS");
+                    event.getPlayer().openInventory(Inventorys.getInventoryTypeInventoryHashMap().get(EnumInventoryType.TEAMS_INVENTORY).get());
                     event.setCancelled(true);
                 }
 

@@ -9,7 +9,10 @@ import de.obdachioser.capturethebay.cache.api.PlayerCache;
 import de.obdachioser.capturethebay.countdown.CountdownHandler;
 import de.obdachioser.capturethebay.countdown.GameState;
 import de.obdachioser.capturethebay.countdown.SimpleCountdownInitializer;
+import de.obdachioser.capturethebay.enums.EnumInventoryType;
 import de.obdachioser.capturethebay.enums.EnumPlayerState;
+import de.obdachioser.capturethebay.inventorys.Inventorys;
+import de.obdachioser.capturethebay.inventorys.TeamInventory;
 import de.obdachioser.capturethebay.scoreboard.ScoreboardHandler;
 import lombok.Getter;
 import lombok.Setter;
@@ -47,6 +50,7 @@ public class GameSession {
             "§3");
 
     private Integer maxplayers = 15;
+    private Integer minplayers = 2;
 
     public GameSession() {
 
@@ -56,6 +60,9 @@ public class GameSession {
             return new PlayerCache(0, 0, 0, 0, 5,null,
                     "§f" + player.getName(), (currentGameState.toInteger() > 0 ? EnumPlayerState.SPECTATOR : EnumPlayerState.PLAYER));
         });
+
+        Inventorys.getInventoryTypeInventoryHashMap().put(EnumInventoryType.TEAMS_INVENTORY, new TeamInventory());
+        Inventorys.prepareAll();
 
         teams.createNewTeam(new DefinedTeam(TeamColor.RED));
         teams.createNewTeam(new DefinedTeam(TeamColor.BLUE));

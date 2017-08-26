@@ -66,10 +66,13 @@ public class CaptureTheBay extends JavaPlugin {
 
         getServer().getPluginManager().registerEvents(new BlockBreakListener(), this);
         getServer().getPluginManager().registerEvents(new BlockPlaceListener(), this);
-        getServer().getPluginManager().registerEvents(new PlayerInteractListener(), this);
 
         getServer().getPluginManager().registerEvents(new PlayerDeathListener(),this);
-        getServer().getPluginManager().registerEvents(new PlayerDeathListener(),this);
+        getServer().getPluginManager().registerEvents(new PlayerDamageByPlayerListener(),this);
+        getServer().getPluginManager().registerEvents(new PlayerDamageListener(), this);
+        getServer().getPluginManager().registerEvents(new PlayerDropItemListener(), this);
+        getServer().getPluginManager().registerEvents(new FoodLevelChangeListener(), this);
+        getServer().getPluginManager().registerEvents(new InventoryClickListener(), this);
     }
 
     private void registerCommands() {

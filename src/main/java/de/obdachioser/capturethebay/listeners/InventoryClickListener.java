@@ -14,7 +14,7 @@ public class InventoryClickListener implements Listener {
 
     @EventHandler
     public void inventoryClick(InventoryClickEvent event) {
-
+        event.setCancelled(true);
     }
 
 }

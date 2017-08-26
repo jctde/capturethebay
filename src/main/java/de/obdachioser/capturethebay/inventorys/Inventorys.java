@@ -1,6 +1,7 @@
 package de.obdachioser.capturethebay.inventorys;
 
 import com.google.common.collect.Maps;
+import de.obdachioser.capturethebay.api.DefinedTeam;
 import de.obdachioser.capturethebay.enums.EnumInventoryType;
 import lombok.Getter;
 
@@ -18,7 +19,7 @@ public class Inventorys {
     private static HashMap<EnumInventoryType, DefinedInventory> inventoryTypeInventoryHashMap = Maps.newHashMap();
 
     public static void prepareAll() {
-
+        for(DefinedInventory definedInventory : inventoryTypeInventoryHashMap.values())  definedInventory.prepare();
     }
 
 }
