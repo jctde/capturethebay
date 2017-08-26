@@ -1,6 +1,7 @@
 package de.obdachioser.capturethebay.projectlisteners;
 
 import de.obdachioser.capturethebay.events.GameStateChangeEvent;
+import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
@@ -14,7 +15,6 @@ public class GameStateChangeListener implements Listener {
 
     @EventHandler
     public void gameState(GameStateChangeEvent event) {
-
+        Bukkit.broadcastMessage("Called change: Old: " + event.getOldState().name() + " : New: " + event.getNewState().name());
     }
-
 }

@@ -89,9 +89,20 @@ public class ScoreboardHandler {
         }
     }
 
-    public void updateScore(Player player, Integer i, String newScore, String old) {
+    public void sendTestScoreboard(Player player) {
 
-        scoreboard.resetPlayerScores(old, scoreboardObjective);
+        ScoreboardTeam scoreboardTeam = new ScoreboardTeam(scoreboard, "");
+        scoreboardTeam.setPrefix("§c");
+        scoreboardTeam.setSuffix("§e");
+        scoreboardTeam.b(ScoreboardTeamBase.EnumNameTagVisibility.ALWAYS);
+
+        scoreboardTeam.getPlayerNameSet().add(player.getName());
+
+        PacketPlayOutScoreboardTeam packetPlayOutScoreboardTeam = new PacketPlayOutScoreboardTeam(scoreboardTeam, 0);
+        ((CraftPlayer) player).getHandle().playerConnection.sendPacket(packetPlayOutScoreboardTeam);
+    }
+
+    public void updateScore(Player player, Integer i, String newScore, String old) {
 
         ScoreboardScore scoreboardScore = new ScoreboardScore(scoreboard, scoreboardObjective, newScore);
         scoreboardScore.setScore(i);

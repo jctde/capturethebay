@@ -40,7 +40,7 @@ public class Teams {
 
     public Team getEmptiestTeam() {
 
-        Integer i = 1;
+        Integer i = 2;
         Team returnTeam = null;
 
         while(returnTeam == null) {

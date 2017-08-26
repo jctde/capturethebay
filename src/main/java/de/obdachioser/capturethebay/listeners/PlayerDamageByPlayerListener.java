@@ -3,6 +3,7 @@ package de.obdachioser.capturethebay.listeners;
 import de.obdachioser.capturethebay.CaptureTheBay;
 import de.obdachioser.capturethebay.cache.api.PlayerCache;
 import de.obdachioser.capturethebay.countdown.GameState;
+import de.obdachioser.capturethebay.enums.EnumPlayerState;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -24,6 +25,12 @@ public class PlayerDamageByPlayerListener implements Listener {
 
             PlayerCache playerCache = CaptureTheBay.getGameSession().getPlayerCacheCacheHandler().get(event.getEntity().getUniqueId());
             PlayerCache damagerCache = CaptureTheBay.getGameSession().getPlayerCacheCacheHandler().get(event.getDamager().getUniqueId());
+
+            if(damagerCache.getEnumPlayerState() == EnumPlayerState.SPECTATOR) {
+
+                event.setCancelled(true);
+                return;
+            }
 
             if(damagerCache.getCurrentTeam() == playerCache.getCurrentTeam()) {
 

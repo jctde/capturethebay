@@ -17,9 +17,11 @@ import de.obdachioser.capturethebay.inventorys.Inventorys;
 import de.obdachioser.capturethebay.inventorys.KitsInventory;
 import de.obdachioser.capturethebay.inventorys.PlayerInventory;
 import de.obdachioser.capturethebay.inventorys.TeamInventory;
+import de.obdachioser.capturethebay.kits.KitState;
 import de.obdachioser.capturethebay.kits.Kits;
 import de.obdachioser.capturethebay.kits.kits.Mensch;
 import de.obdachioser.capturethebay.kits.kits.Pirat;
+import de.obdachioser.capturethebay.kits.kits.Schmied;
 import de.obdachioser.capturethebay.scoreboard.ScoreboardHandler;
 import lombok.Getter;
 import lombok.Setter;
@@ -58,7 +60,7 @@ public class GameSession {
             "§3");
 
     private Integer maxplayers = 15;
-    private Integer minplayers = 2;
+    private Integer minplayers = 1;
 
     public GameSession() {
 
@@ -72,7 +74,7 @@ public class GameSession {
             return new PlayerCache(0, 0, 0, 0, 5,null,
                     "§f" + player.getName(),
                     (currentGameState.toInteger() > 0 ? EnumPlayerState.SPECTATOR : EnumPlayerState.PLAYER),
-                    playerInventorys);
+                    playerInventorys, new KitState(player));
         });
 
         registerTeams();
@@ -97,13 +99,13 @@ public class GameSession {
         teams.createNewTeam(new DefinedTeam(TeamColor.RED));
         teams.createNewTeam(new DefinedTeam(TeamColor.BLUE));
         teams.createNewTeam(new DefinedTeam(TeamColor.GREEN));
-
     }
 
     private void registerKits() {
 
         Kits.addKit(new Pirat());
         Kits.addKit(new Mensch());
+        Kits.addKit(new Schmied());
 
     }
 }

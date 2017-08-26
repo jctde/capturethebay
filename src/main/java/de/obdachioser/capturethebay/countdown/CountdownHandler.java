@@ -1,5 +1,6 @@
 package de.obdachioser.capturethebay.countdown;
 
+import de.obdachioser.capturethebay.CaptureTheBay;
 import de.obdachioser.capturethebay.events.GameStateChangeEvent;
 import jdk.nashorn.internal.runtime.ECMAException;
 import lombok.Getter;
@@ -46,12 +47,23 @@ public class CountdownHandler {
 
             try {
 
-                while(time != 0) {
+                for(Integer u = -1; time != -1; time--) {
 
                     TimeUnit.MILLISECONDS.sleep(1000L);
-                    time--;
 
                     countdownInitializer.handle(time);
+
+                    if(time == 0 && gameState == GameState.LOBBY) {
+
+                        TimeUnit.MILLISECONDS.sleep(100L);
+                        switchState(GameState.INGAME);
+                    }
+
+                    if(time == 0 && gameState == GameState.INGAME) {
+
+                        TimeUnit.MILLISECONDS.sleep(100L);
+                        switchState(GameState.END);
+                    }
                 }
 
                 running = false;
@@ -73,17 +85,13 @@ public class CountdownHandler {
         this.gameState = gameState;
         this.time = gameState.getTime();
 
-        if(running) {
-
-           this.shutdown();
-           this.executorService = Executors.newSingleThreadExecutor();
-        }
+        CaptureTheBay.getGameSession().setCurrentGameState(gameState);
 
         Bukkit.getPluginManager().callEvent(new GameStateChangeEvent(old, this.gameState));
         init();
     }
 
     public void shutdown() {
-        executorService.shutdown();
+        executorService.shutdownNow();
     }
 }

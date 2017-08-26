@@ -1,6 +1,7 @@
 package de.obdachioser.capturethebay.kits;
 
 import de.obdachioser.capturethebay.enums.EnumKitAction;
+import org.bukkit.Material;
 
 import java.util.List;
 
@@ -18,4 +19,5 @@ public interface Kit {
     String name();
     String displayName();
     Integer price();
+    Material material();
 }

@@ -1,8 +1,11 @@
 package de.obdachioser.capturethebay.listeners;
 
 import de.obdachioser.capturethebay.CaptureTheBay;
+import de.obdachioser.capturethebay.cache.api.PlayerCache;
 import de.obdachioser.capturethebay.countdown.GameState;
 import de.obdachioser.capturethebay.enums.EnumInventoryType;
+import de.obdachioser.capturethebay.enums.EnumPlayerInventoryType;
+import de.obdachioser.capturethebay.enums.EnumPlayerState;
 import de.obdachioser.capturethebay.inventorys.Inventorys;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -31,12 +34,20 @@ public class PlayerInteractListener implements Listener {
             event.setCancelled(true);
         }
 
+        if(CaptureTheBay.getGameSession().getPlayerCacheCacheHandler().get(event.getPlayer().getUniqueId()).getEnumPlayerState() == EnumPlayerState.SPECTATOR) {
+
+            event.setCancelled(true);
+            return;
+        }
+
+
         if(event.getAction().equals(Action.RIGHT_CLICK_AIR) || event.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
 
             if(event.getItem() == null || event.getItem().getType() == Material.AIR) return;
 
             if(CaptureTheBay.getGameSession().getCurrentGameState() == GameState.LOBBY) {
 
+                PlayerCache playerCache = CaptureTheBay.getGameSession().getPlayerCacheCacheHandler().get(event.getPlayer().getUniqueId());
 
                 if(event.getItem().getType().equals(Material.GOLD_HELMET)) {
 
@@ -48,7 +59,8 @@ public class PlayerInteractListener implements Listener {
 
                 if(event.getItem().getType().equals(Material.CHEST)) {
 
-                    Bukkit.broadcastMessage("KITS");
+                    event.getPlayer().openInventory(playerCache.getPlayerInventoryMap().get(EnumPlayerInventoryType.PLAYER_KITS).get());
+                    event.getPlayer().playSound(event.getPlayer().getEyeLocation(), Sound.CHEST_OPEN, 1F, 1F);
                     event.setCancelled(true);
                 }
 

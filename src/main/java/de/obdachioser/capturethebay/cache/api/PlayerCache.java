@@ -5,6 +5,7 @@ import de.obdachioser.capturethebay.api.Team;
 import de.obdachioser.capturethebay.enums.EnumPlayerInventoryType;
 import de.obdachioser.capturethebay.enums.EnumPlayerState;
 import de.obdachioser.capturethebay.inventorys.PlayerInventory;
+import de.obdachioser.capturethebay.kits.KitState;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -30,5 +31,7 @@ public class PlayerCache {
     private EnumPlayerState enumPlayerState;
 
     private HashMap<EnumPlayerInventoryType, PlayerInventory> playerInventoryMap = Maps.newHashMap();
+
+    private KitState kitState;
 
 }

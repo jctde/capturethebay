@@ -3,6 +3,7 @@ package de.obdachioser.capturethebay;
 import de.obdachioser.capturethebay.config.CurrentGameWorldConfiguration;
 import de.obdachioser.capturethebay.config.LocaleGameConfiguration;
 import de.obdachioser.capturethebay.listeners.*;
+import de.obdachioser.capturethebay.projectlisteners.GameStateChangeListener;
 import de.obdachioser.capturethebay.sessions.GameSession;
 import lombok.Getter;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -66,13 +67,18 @@ public class CaptureTheBay extends JavaPlugin {
 
         getServer().getPluginManager().registerEvents(new BlockBreakListener(), this);
         getServer().getPluginManager().registerEvents(new BlockPlaceListener(), this);
+        getServer().getPluginManager().registerEvents(new GameStateChangeListener(),this);
 
         getServer().getPluginManager().registerEvents(new PlayerDeathListener(),this);
         getServer().getPluginManager().registerEvents(new PlayerDamageByPlayerListener(),this);
         getServer().getPluginManager().registerEvents(new PlayerDamageListener(), this);
+
         getServer().getPluginManager().registerEvents(new PlayerDropItemListener(), this);
         getServer().getPluginManager().registerEvents(new FoodLevelChangeListener(), this);
         getServer().getPluginManager().registerEvents(new InventoryClickListener(), this);
+
+        getServer().getPluginManager().registerEvents(new PlayerInventoryItemHoldListener(), this);
+
         getServer().getPluginManager().registerEvents(new InventoryCloseListener(), this);
     }
 

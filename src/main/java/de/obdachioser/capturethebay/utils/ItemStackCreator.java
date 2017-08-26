@@ -1,10 +1,13 @@
 package de.obdachioser.capturethebay.utils;
 
 import com.google.common.collect.Lists;
+import de.obdachioser.capturethebay.api.TeamColor;
+import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.LeatherArmorMeta;
 
 /**
  * Created by ObdachIoser at 15:47 on 25.08.2017.
@@ -92,6 +95,25 @@ public class ItemStackCreator {
         itemMeta.setDisplayName("§c");
 
         itemStack.setItemMeta(itemMeta);
+        return itemStack;
+    }
+
+    public static ItemStack d(Material material, TeamColor teamColor, String name) {
+
+        ItemStack itemStack = new ItemStack(material);
+        LeatherArmorMeta leatherArmorMeta = (LeatherArmorMeta) itemStack.getItemMeta();
+
+        Color color = null;
+
+        if(teamColor == TeamColor.RED) color = Color.RED;
+        if(teamColor == TeamColor.BLUE) color = Color.BLUE;
+        if(teamColor == TeamColor.GREEN) color = Color.GREEN;
+        if(teamColor == TeamColor.YELLOW) color = Color.YELLOW;
+
+        leatherArmorMeta.setColor(color);
+        leatherArmorMeta.setDisplayName(name);
+
+        itemStack.setItemMeta(leatherArmorMeta);
         return itemStack;
     }
 }

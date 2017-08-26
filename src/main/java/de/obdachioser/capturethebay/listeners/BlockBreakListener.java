@@ -1,7 +1,9 @@
 package de.obdachioser.capturethebay.listeners;
 
 import de.obdachioser.capturethebay.CaptureTheBay;
+import de.obdachioser.capturethebay.cache.api.PlayerCache;
 import de.obdachioser.capturethebay.countdown.GameState;
+import de.obdachioser.capturethebay.enums.EnumPlayerState;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
@@ -21,5 +23,9 @@ public class BlockBreakListener implements Listener {
             event.setCancelled(false);
         else
             event.setCancelled(true);
+
+        if(CaptureTheBay.getGameSession().getPlayerCacheCacheHandler().get(event.getPlayer().getUniqueId()).getEnumPlayerState() == EnumPlayerState.SPECTATOR)
+            event.setCancelled(true);
+
     }
 }

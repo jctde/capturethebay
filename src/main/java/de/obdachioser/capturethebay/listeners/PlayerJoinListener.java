@@ -3,13 +3,18 @@ package de.obdachioser.capturethebay.listeners;
 import com.google.common.collect.Maps;
 import de.obdachioser.capturethebay.CaptureTheBay;
 import de.obdachioser.capturethebay.api.PlayerStates;
+import de.obdachioser.capturethebay.cache.api.PlayerCache;
 import de.obdachioser.capturethebay.countdown.GameState;
+import de.obdachioser.capturethebay.enums.EnumPlayerInventoryType;
+import de.obdachioser.capturethebay.scoreboard.team.SimpleScoreboardTeam;
+import de.obdachioser.capturethebay.scoreboard.team.Teams;
 import de.obdachioser.capturethebay.sessions.locations.Locations;
 import de.obdachioser.capturethebay.utils.ItemStackCreator;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.Sound;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -30,7 +35,9 @@ public class PlayerJoinListener implements Listener {
 
         event.setJoinMessage(null);
 
-        CaptureTheBay.getGameSession().getPlayerCacheCacheHandler().add(event.getPlayer().getUniqueId());
+        PlayerCache playerCache = CaptureTheBay.getGameSession().getPlayerCacheCacheHandler().add(event.getPlayer().getUniqueId());
+
+        playerCache.getPlayerInventoryMap().get(EnumPlayerInventoryType.PLAYER_KITS).prepare();
 
         if(CaptureTheBay.getGameSession().getCurrentGameState().toInteger() > 0) {
 
@@ -52,11 +59,16 @@ public class PlayerJoinListener implements Listener {
             event.getPlayer().setHealth(20);
             event.getPlayer().setFoodLevel(20);
 
+            event.getPlayer().setFlySpeed(0.2F);
+            event.getPlayer().setWalkSpeed(0.2F);
+
             HashMap<String, String> replacements = Maps.newHashMap();
-            replacements.put("%map%", "default");
+            replacements.put("%map%", Locations.getCurrentGameWorldConfiguration().getMiddleLocation().getWorld().getName());
 
             CaptureTheBay.getGameSession().getScoreboardHandler().setReplacements(replacements);
             CaptureTheBay.getGameSession().getScoreboardHandler().sendScoreboard(event.getPlayer());
+
+            CaptureTheBay.getGameSession().getScoreboardHandler().sendTestScoreboard(event.getPlayer());
 
             event.getPlayer().getInventory().setArmorContents(new ItemStack[] {
                     null, null, null, ItemStackCreator.a(Material.CHAINMAIL_HELMET, "§bSchutzhelm")});
@@ -69,9 +81,23 @@ public class PlayerJoinListener implements Listener {
         event.getPlayer().teleport(CaptureTheBay.getGameSession().getCurrentGameState().toInteger()
                 > 0 ? Locations.getCurrentGameWorldConfiguration().getMiddleLocation() : Locations.getSpawnLocation());
 
-        if(CaptureTheBay.getGameSession().getCurrentGameState() == GameState.LOBBY || CaptureTheBay.getGameSession().getCurrentGameState() == GameState.END)
+        if(CaptureTheBay.getGameSession().getCurrentGameState() == GameState.LOBBY)
             Bukkit.broadcastMessage(CaptureTheBay.getPrefix() + "§f" + event.getPlayer().getName() + " §7hat das Spiel betreten. §7[§f" + Bukkit.getOnlinePlayers().size()
                     + "§7/"+CaptureTheBay.getGameSession().getMaxplayers()+"]");
 
+        Teams.sendAllTeams(event.getPlayer());
+        team(event.getPlayer());
+    }
+
+    private void team(Player player) {
+
+        SimpleScoreboardTeam simpleScoreboardTeam = (SimpleScoreboardTeam) Teams.getTeam("default");
+
+        if(simpleScoreboardTeam == null)
+            simpleScoreboardTeam = (SimpleScoreboardTeam) Teams.createTeam("default");
+
+        simpleScoreboardTeam.setPrefix("§7");
+        simpleScoreboardTeam.setSuffix("§f");
+        simpleScoreboardTeam.add(player.getName());
     }
 }

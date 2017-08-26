@@ -28,8 +28,10 @@ public class Pirat extends DefaultKit implements Kit {
     public Pirat() {
 
         this.kitContent = new KitContent(
-                new ItemStack[] {ItemStackCreator.a(Material.STONE_SWORD, "§7Piraten Schwert")},
-                new ItemStack[] {null, null, ItemStackCreator.a(Material.LEATHER_CHESTPLATE, "§ePiratenschutz")}
+                new ItemStack[] {ItemStackCreator.a(Material.STONE_SWORD, "§7Piraten Schwert"),
+                        ItemStackCreator.a(Material.COOKED_BEEF, "§cSchweinefleisch")},
+                new ItemStack[] {null, ItemStackCreator.a(Material.LEATHER_LEGGINGS, "§ePiratenschutz"),
+                        ItemStackCreator.a(Material.LEATHER_CHESTPLATE, "§ePiratenschutz"), null}
         );
     }
 
@@ -48,7 +50,7 @@ public class Pirat extends DefaultKit implements Kit {
         return Lists.newArrayList(
                     " ",
                               "§7Als §cPirat §7legst du dich",
-                              "§7mit der §fCrew §7gegen andere",
+                              "§7mit der §cCrew §7gegen andere",
                               "§cPiraten §7an!",
                               " ",
                               "§7Jeder fängt klein an §8- §7Werde eine Lebende §bLegende§7!",
@@ -72,5 +74,10 @@ public class Pirat extends DefaultKit implements Kit {
 
     public Kit getKit() {
         return this;
+    }
+
+    @Override
+    public Material material() {
+        return Material.WOOD_SWORD;
     }
 }
