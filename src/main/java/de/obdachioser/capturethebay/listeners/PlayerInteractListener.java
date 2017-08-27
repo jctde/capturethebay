@@ -10,6 +10,7 @@ import de.obdachioser.capturethebay.enums.EnumInventoryType;
 import de.obdachioser.capturethebay.enums.EnumPlayerInventoryType;
 import de.obdachioser.capturethebay.enums.EnumPlayerState;
 import de.obdachioser.capturethebay.inventorys.Inventorys;
+import de.obdachioser.capturethebay.inventorys.TeleporterInventory;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -52,9 +53,9 @@ public class PlayerInteractListener implements Listener {
                 return;
             }
 
-            if(event.getItem() == null || event.getItem().getType() == Material.AIR) return;
-
             if(CaptureTheBay.getGameSession().getCurrentGameState() == GameState.INGAME) {
+
+                if(event.getClickedBlock() == null || event.getClickedBlock().getType() == Material.AIR) return;
 
                 if(event.getClickedBlock().getType() == Material.BEDROCK) {
 
@@ -81,6 +82,25 @@ public class PlayerInteractListener implements Listener {
                         Bukkit.broadcastMessage("NOT FOUND!");
                         CaptureTheBay.getGamePlaySession().getBays().foundBay(new SimpleBay(event.getPlayer(), event.getClickedBlock().getLocation()));
                     }
+                }
+            }
+
+            if(event.getItem() == null || event.getItem().getType() == Material.AIR) return;
+
+            if(CaptureTheBay.getGameSession().getCurrentGameState() == GameState.INGAME) {
+
+                PlayerCache playerCache = CaptureTheBay.getGameSession().getPlayerCacheCacheHandler().get(event.getPlayer().getUniqueId());
+
+                if(event.getItem().getType() == Material.COMPASS) {
+
+                    if(playerCache.getEnumPlayerState() == EnumPlayerState.PLAYER) return;
+
+                    TeleporterInventory teleporterInventory = (TeleporterInventory)
+                            Inventorys.getInventoryTypeInventoryHashMap().get(EnumInventoryType.TELEPORTER_INVENTORY);
+
+                    event.getPlayer().openInventory(teleporterInventory.get());
+                    event.getPlayer().playSound(event.getPlayer().getEyeLocation(), Sound.CHEST_OPEN, 1F, 1F);
+                    return;
                 }
             }
 

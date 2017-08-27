@@ -8,6 +8,7 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
+import org.bukkit.inventory.meta.SkullMeta;
 
 /**
  * Created by ObdachIoser at 15:47 on 25.08.2017.
@@ -32,6 +33,25 @@ public class ItemStackCreator {
         itemStack.setItemMeta(itemMeta);
 
         return itemStack;
+    }
+
+    public static ItemStack f(String owner, String name) {
+
+        ItemStack itemStack = new ItemStack(Material.SKULL_ITEM, 1, (short) 3);
+        SkullMeta itemMeta = (SkullMeta) itemStack.getItemMeta();
+
+        itemMeta.setOwner(owner);
+        itemMeta.setDisplayName(name);
+
+        itemMeta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE);
+        itemMeta.addItemFlags(ItemFlag.HIDE_DESTROYS);
+        itemMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+        itemMeta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
+
+        itemStack.setItemMeta(itemMeta);
+
+        return itemStack;
+
     }
 
     public static ItemStack a(Material material, String name, String[] lore) {

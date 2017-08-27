@@ -3,6 +3,7 @@ package de.obdachioser.capturethebay.api;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import lombok.Getter;
+import org.bukkit.Bukkit;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -40,17 +41,30 @@ public class Teams {
 
     public Team getEmptiestTeam() {
 
-        List<Team> teamList = all0();
         Team team = null;
 
         Integer i = 1;
 
         while(team == null) {
 
-            for(Team t : teamList) if(t.size() <= i) return team;
+            for(Team t : teamMap.values()) if(t.size() <= i) return t;
             i++;
         }
 
+        Bukkit.broadcastMessage("Team is null");
+        return null;
+    }
+
+    public Integer getAliveTeams() {
+
+        Integer i = 0;
+
+        for(Team team : teamMap.values()) if(team.isAlive()) i++;
+        return i;
+    }
+
+    public Team getLastAliveTeam() {
+        for(Team team : teamMap.values()) if(team.isAlive()) return team;
         return null;
     }
 

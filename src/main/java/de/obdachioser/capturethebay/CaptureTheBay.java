@@ -3,7 +3,10 @@ package de.obdachioser.capturethebay;
 import de.obdachioser.capturethebay.config.CurrentGameWorldConfiguration;
 import de.obdachioser.capturethebay.config.LocaleGameConfiguration;
 import de.obdachioser.capturethebay.listeners.*;
+import de.obdachioser.capturethebay.projectlisteners.BayFoundListener;
+import de.obdachioser.capturethebay.projectlisteners.EnderChestBreakListener;
 import de.obdachioser.capturethebay.projectlisteners.GameStateChangeListener;
+import de.obdachioser.capturethebay.projectlisteners.TeamActionListener;
 import de.obdachioser.capturethebay.sessions.GamePlaySession;
 import de.obdachioser.capturethebay.sessions.GameSession;
 import lombok.Getter;
@@ -87,8 +90,11 @@ public class CaptureTheBay extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new InventoryClickListener(), this);
 
         getServer().getPluginManager().registerEvents(new PlayerInventoryItemHoldListener(), this);
-
         getServer().getPluginManager().registerEvents(new InventoryCloseListener(), this);
+
+        getServer().getPluginManager().registerEvents(new BayFoundListener(), this);
+        getServer().getPluginManager().registerEvents(new EnderChestBreakListener(), this);
+        getServer().getPluginManager().registerEvents(new TeamActionListener(), this);
     }
 
     private void registerCommands() {

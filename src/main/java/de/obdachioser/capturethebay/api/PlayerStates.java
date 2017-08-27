@@ -3,8 +3,11 @@ package de.obdachioser.capturethebay.api;
 import de.obdachioser.capturethebay.CaptureTheBay;
 import de.obdachioser.capturethebay.cache.api.PlayerCache;
 import de.obdachioser.capturethebay.enums.EnumPlayerState;
+import de.obdachioser.capturethebay.utils.ItemStackCreator;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 
 import java.util.Map;
@@ -29,6 +32,9 @@ public class PlayerStates {
         playerCache.setEnumPlayerState(EnumPlayerState.SPECTATOR);
 
         player.getInventory().clear();
+        player.getInventory().setArmorContents(new ItemStack[] {null, null, null, null});
+        player.getInventory().setItem(0, ItemStackCreator.a(Material.COMPASS, "§cTeleporter §7§o(Rechtsklick)"));
+
         player.setVelocity(new Vector(0, 1.5, 0));
 
         if(player.getOpenInventory() != null)

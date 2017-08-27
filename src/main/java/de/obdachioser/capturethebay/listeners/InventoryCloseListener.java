@@ -21,5 +21,15 @@ public class InventoryCloseListener implements Listener {
 
             ((Player) event.getPlayer()).playSound(event.getPlayer().getEyeLocation(), Sound.CHEST_CLOSE, 1F, 1F);
         }
+
+        if(event.getInventory().getTitle().contains("Spieler die im Spiel sind")) {
+
+            ((Player) event.getPlayer()).playSound(event.getPlayer().getEyeLocation(), Sound.CHEST_CLOSE, 1F, 1F);
+        }
+
+        if(event.getInventory().getTitle().contains("Deine Kits")) {
+
+            ((Player) event.getPlayer()).playSound(event.getPlayer().getEyeLocation(), Sound.CHEST_CLOSE, 1F, 1F);
+        }
     }
 }

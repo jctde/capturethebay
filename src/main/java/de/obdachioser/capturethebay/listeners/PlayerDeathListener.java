@@ -27,16 +27,17 @@ public class PlayerDeathListener implements Listener {
         event.setNewTotalExp(0);
         event.setKeepLevel(false);
 
+        entity.setLives(entity.getLives()-1);
+        entity.setDeaths(entity.getDeaths()+1);
+
+        if(entity.getLives() == 0) {
+
+            entity.getCurrentTeam().broadcast(CaptureTheBay.getPrefix() + entity.getGameDisplayName() + " §7ist ausgeschieden.");
+            entity.setEnumPlayerState(EnumPlayerState.SPECTATOR);
+            entity.getCurrentTeam().removePlayer(event.getEntity());
+        }
+
         if(event.getEntity().getKiller() == null) {
-
-            entity.setLives(entity.getLives()-1);
-            entity.setDeaths(entity.getDeaths()+1);
-
-            if(entity.getLives() == 0) {
-
-                entity.getCurrentTeam().broadcast(CaptureTheBay.getPrefix() + entity.getGameDisplayName() + " §7ist ausgeschieden.");
-                entity.getCurrentTeam().removePlayer(event.getEntity());
-            }
 
             event.setDeathMessage(CaptureTheBay.getPrefix() + entity.getGameDisplayName() + " §7ist gestorben.");
             return;

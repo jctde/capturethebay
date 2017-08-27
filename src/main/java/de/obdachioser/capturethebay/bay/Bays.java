@@ -1,6 +1,7 @@
 package de.obdachioser.capturethebay.bay;
 
 import com.google.common.collect.Maps;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -22,19 +23,25 @@ public class Bays {
     public Bay foundBay(Bay bay) {
 
         bayHashMap.put(bay.getName(), bay);
-        locationHashMap.put(bay, bay.getBlockLocation());
 
-        Location location = bay.getBlockLocation().clone();
-
-        if(location.getBlock().getType() == Material.BEDROCK) location.setY(location.getY()+1);
-        else if(location.getBlock().getType() == Material.COBBLE_WALL) location.setY(location.getY()-1);
+        Bukkit.broadcastMessage("BL: " + bay.getBlockLocation());
+        Location location = new Location(bay.getBlockLocation().getWorld(), (int) bay.getBlockLocation().getX(),
+                (int) bay.getBlockLocation().getY(), (int) bay.getBlockLocation().getZ());
 
         locationHashMap.put(bay, location);
-        return  bay;
+        Location location1 = location.clone();
+
+        if(location1.getBlock().getType() == Material.BEDROCK) location1.setY(location1.getY()+1);
+        else if(location1.getBlock().getType() == Material.COBBLE_WALL) location1.setY(location1.getY()-1);
+
+        locationHashMap.put(bay, location1);
+        return bay;
     }
 
     public boolean existBay(Location location) {
-        return locationHashMap.containsValue(location);
+
+        Location location1 = new Location(location.getWorld(), (int) location.getX(), (int) location.getY(), (int) location.getZ());
+        return locationHashMap.containsValue(location1);
     }
 
     public Bay captureBay(Player player, Bay bay) {

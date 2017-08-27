@@ -8,5 +8,6 @@ package de.obdachioser.capturethebay.enums;
  */
 public enum EnumInventoryType {
 
-    TEAMS_INVENTORY();
+    TEAMS_INVENTORY(),
+    TELEPORTER_INVENTORY();
 }

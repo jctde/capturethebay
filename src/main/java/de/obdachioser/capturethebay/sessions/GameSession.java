@@ -14,10 +14,7 @@ import de.obdachioser.capturethebay.countdown.SimpleCountdownInitializer;
 import de.obdachioser.capturethebay.enums.EnumInventoryType;
 import de.obdachioser.capturethebay.enums.EnumPlayerInventoryType;
 import de.obdachioser.capturethebay.enums.EnumPlayerState;
-import de.obdachioser.capturethebay.inventorys.Inventorys;
-import de.obdachioser.capturethebay.inventorys.KitsInventory;
-import de.obdachioser.capturethebay.inventorys.PlayerInventory;
-import de.obdachioser.capturethebay.inventorys.TeamInventory;
+import de.obdachioser.capturethebay.inventorys.*;
 import de.obdachioser.capturethebay.kits.KitState;
 import de.obdachioser.capturethebay.kits.Kits;
 import de.obdachioser.capturethebay.kits.kits.Mensch;
@@ -86,11 +83,11 @@ public class GameSession {
         countdownHandler.init();
 
         Inventorys.getInventoryTypeInventoryHashMap().put(EnumInventoryType.TEAMS_INVENTORY, new TeamInventory());
+        Inventorys.getInventoryTypeInventoryHashMap().put(EnumInventoryType.TELEPORTER_INVENTORY, new TeleporterInventory());
+
         Inventorys.prepareAll();
 
         registerKits();
-
-        CaptureTheBay.getGamePlaySession().accept(teams.all0());
     }
 
     public void stopSession() {

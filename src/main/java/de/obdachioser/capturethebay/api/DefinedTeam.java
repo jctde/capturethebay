@@ -29,6 +29,8 @@ public class DefinedTeam implements Team {
 
     private Integer gold = 5;
 
+    private boolean alive = false;
+
     private String teamDisplayName;
 
     public DefinedTeam(TeamColor teamColor) {
@@ -99,5 +101,15 @@ public class DefinedTeam implements Team {
     @Override
     public void removeGold(Integer d) {
         gold -= d;
+    }
+
+    @Override
+    public boolean isAlive() {
+        return alive;
+    }
+
+    @Override
+    public void setAlive(Boolean b) {
+        this.alive = b;
     }
 }

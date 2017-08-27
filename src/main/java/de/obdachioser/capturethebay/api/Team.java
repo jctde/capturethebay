@@ -25,4 +25,6 @@ public interface Team {
     void broadcast(String msg);
     void addGold(Integer d);
     void removeGold(Integer d);
+    boolean isAlive();
+    void setAlive(Boolean b);
 }
