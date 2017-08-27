@@ -5,7 +5,12 @@ import de.obdachioser.capturethebay.CaptureTheBay;
 import de.obdachioser.capturethebay.api.PlayerStates;
 import de.obdachioser.capturethebay.cache.api.PlayerCache;
 import de.obdachioser.capturethebay.countdown.GameState;
+import de.obdachioser.capturethebay.enums.EnumInventoryType;
 import de.obdachioser.capturethebay.enums.EnumPlayerInventoryType;
+import de.obdachioser.capturethebay.events.TeamActionEvent;
+import de.obdachioser.capturethebay.inventorys.Inventorys;
+import de.obdachioser.capturethebay.inventorys.TeamInventory;
+import de.obdachioser.capturethebay.inventorys.TeleporterInventory;
 import de.obdachioser.capturethebay.scoreboard.team.SimpleScoreboardTeam;
 import de.obdachioser.capturethebay.scoreboard.team.Teams;
 import de.obdachioser.capturethebay.sessions.locations.Locations;
@@ -52,6 +57,9 @@ public class PlayerJoinListener implements Listener {
             event.getPlayer().getInventory().setItem(8, ItemStackCreator.a(Material.SLIME_BALL, "§cZurück zur Lobby §7§o(Rechtsklick)"));
             event.getPlayer().getInventory().setItem(7, ItemStackCreator.a(Material.NETHER_STAR, "§bArchievments §7§o(Rechtsklick)"));
             event.getPlayer().getInventory().setItem(4, ItemStackCreator.a(Material.CHEST, "§aKits §7§o(Rechtsklick)"));
+
+            TeleporterInventory teleporterInventory = (TeleporterInventory) Inventorys.getInventoryTypeInventoryHashMap().get(EnumInventoryType.TELEPORTER_INVENTORY);
+            teleporterInventory.callAction(TeamActionEvent.EnumTeamAction.TEAM_JOIN, event.getPlayer());
 
             event.getPlayer().setFlying(false);
             event.getPlayer().setAllowFlight(false);

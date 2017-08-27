@@ -14,8 +14,6 @@ import java.util.function.Consumer;
  */
 public interface Team {
 
-    List<Player> playerList = Lists.newArrayList();
-
     void addPlayer(Player player);
     void removePlayer(Player player);
     int size();

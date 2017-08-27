@@ -58,6 +58,13 @@ public class TeleporterInventory implements DefinedInventory {
         }
     }
 
+    /**
+     *
+     *
+     *
+     * @param player
+     * @return
+     */
     public ItemStack get(Player player) {
 
         for(ItemStack itemStack : inventory.getContents())

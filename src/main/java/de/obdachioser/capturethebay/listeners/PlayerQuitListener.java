@@ -6,8 +6,10 @@ import de.obdachioser.capturethebay.api.Team;
 import de.obdachioser.capturethebay.cache.api.PlayerCache;
 import de.obdachioser.capturethebay.countdown.GameState;
 import de.obdachioser.capturethebay.enums.EnumInventoryType;
+import de.obdachioser.capturethebay.events.TeamActionEvent;
 import de.obdachioser.capturethebay.inventorys.Inventorys;
 import de.obdachioser.capturethebay.inventorys.TeamInventory;
+import de.obdachioser.capturethebay.inventorys.TeleporterInventory;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -28,6 +30,12 @@ public class PlayerQuitListener implements Listener {
         event.setQuitMessage(null);
 
         PlayerCache playerCache = CaptureTheBay.getGameSession().getPlayerCacheCacheHandler().get(event.getPlayer().getUniqueId());
+
+        if(playerCache.getCurrentTeam() == null) {
+
+            TeleporterInventory teleporterInventory = (TeleporterInventory) Inventorys.getInventoryTypeInventoryHashMap().get(EnumInventoryType.TELEPORTER_INVENTORY);
+            teleporterInventory.callAction(TeamActionEvent.EnumTeamAction.TEAM_LEAVE, event.getPlayer());
+        }
 
         if(playerCache.getCurrentTeam() != null) {
 

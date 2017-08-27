@@ -1,5 +1,6 @@
 package de.obdachioser.capturethebay.api;
 
+import com.google.common.collect.Lists;
 import de.obdachioser.capturethebay.CaptureTheBay;
 import de.obdachioser.capturethebay.cache.api.PlayerCache;
 import de.obdachioser.capturethebay.events.TeamActionEvent;
@@ -28,6 +29,8 @@ public class DefinedTeam implements Team {
     private ExecutorService executorService = Executors.newFixedThreadPool(2);
 
     private Integer gold = 5;
+
+    private List<Player> playerList = Lists.newArrayList();
 
     private boolean alive = false;
 
