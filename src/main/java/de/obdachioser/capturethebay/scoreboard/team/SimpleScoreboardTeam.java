@@ -10,6 +10,7 @@ import net.minecraft.server.v1_8_R3.ScoreboardTeamBase;
 import org.bukkit.Bukkit;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -36,9 +37,15 @@ public class SimpleScoreboardTeam implements DefinedScoreboardTeam {
         this.scoreboardTeam.setPrefix(prefix);
         this.scoreboardTeam.setSuffix(suffix);
         this.scoreboardTeam.b(ScoreboardTeamBase.EnumNameTagVisibility.ALWAYS);
+
+        a();
     }
 
-    public PacketPlayOutScoreboardTeam newPacketPlayOutScoreboardTeam() {
+    public PacketPlayOutScoreboardTeam getPacketPlayOutScoreboardTeam() {
+        return packetPlayOutScoreboardTeam;
+    }
+
+    public PacketPlayOutScoreboardTeam a() {
         return packetPlayOutScoreboardTeam = new PacketPlayOutScoreboardTeam(scoreboardTeam, 0);
     }
 
@@ -51,7 +58,7 @@ public class SimpleScoreboardTeam implements DefinedScoreboardTeam {
 
         this.scoreboardTeam.getPlayerNameSet().add(player);
 
-        this.broadcast(this.newPacketPlayOutScoreboardTeam());
+        this.broadcast(this.getPacketPlayOutScoreboardTeam());
     }
 
     @Override
@@ -59,7 +66,7 @@ public class SimpleScoreboardTeam implements DefinedScoreboardTeam {
 
         this.scoreboardTeam.getPlayerNameSet().remove(player);
 
-        this.broadcast(this.newPacketPlayOutScoreboardTeam());
+        this.broadcast(this.getPacketPlayOutScoreboardTeam());
     }
 
     @Override
@@ -74,12 +81,14 @@ public class SimpleScoreboardTeam implements DefinedScoreboardTeam {
 
     @Override
     public void setPrefix(String prefix) {
+
         this.prefix = prefix;
         this.scoreboardTeam.setPrefix(prefix);
     }
 
     @Override
     public void setSuffix(String suffix) {
+
         this.suffix = suffix;
         this.scoreboardTeam.setSuffix(suffix);
     }

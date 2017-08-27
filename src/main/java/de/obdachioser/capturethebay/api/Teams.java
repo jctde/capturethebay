@@ -40,13 +40,15 @@ public class Teams {
 
     public Team getEmptiestTeam() {
 
-        Integer i = 2;
-        Team returnTeam = null;
+        List<Team> teamList = all0();
+        Team team = null;
 
-        while(returnTeam == null) {
+        Integer i = 1;
 
-            for(Team team : all0()) if(team.size() < i) return returnTeam;
-            if(returnTeam == null) i++;
+        while(team == null) {
+
+            for(Team t : teamList) if(t.size() <= i) return team;
+            i++;
         }
 
         return null;

@@ -10,13 +10,16 @@ import de.obdachioser.capturethebay.utils.ItemStackCreator;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
+import org.bukkit.entity.FallingBlock;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by ObdachIoser at 14:25 on 25.08.2017.
@@ -76,7 +79,7 @@ public class SimpleCountdownInitializer implements CountdownInitializer {
                 if(player.getOpenInventory() != null) player.closeInventory();
 
                 player.getInventory().clear();
-                player.setVelocity(new Vector(0, 15, 0));
+                player.playSound(player.getEyeLocation(), Sound.ITEM_PICKUP, 1F, 1F);
 
                 if(cache.getKitState().getCurrentKit() == null) {
 
@@ -125,17 +128,39 @@ public class SimpleCountdownInitializer implements CountdownInitializer {
         Bukkit.getOnlinePlayers().forEach(player -> player.setLevel(time));
     }
 
-    private void handleIngameState(Integer time) {
+    private Integer d = 120;
 
-        Bukkit.broadcastMessage("t.: " + time);
+    private void handleIngameState(Integer time) {
 
         if(i.contains(time)) {
 
-            Bukkit.broadcastMessage("Das Spiel endet in " + (time > 60 ? (time/60)+1 : time) + " §e"
-                    + (time < 61 ? (time == 1 ? "Sekunde" : "Sekunden") : "Minuten"));
+            Bukkit.broadcastMessage(CaptureTheBay.getPrefix() + "Das Spiel endet in §e" + (time > 60 ? (time/60)+1 : time) + " "
+                    + (time < 61 ? (time == 1 ? "Sekunde" : "Sekunden") : "Minuten") + "§7!");
 
             Bukkit.getOnlinePlayers().forEach(player -> player.playSound(player.getEyeLocation(), Sound.NOTE_PLING, 1F, 1F));
         }
+
+        if(d == 0) {
+
+            Bukkit.broadcastMessage("FALLING BLOCK!");
+            Bukkit.getScheduler().scheduleSyncDelayedTask(CaptureTheBay.getInstance(), () -> d());
+        }
+
+        d--;
+    }
+
+    private void d() {
+
+        for(Integer i = 0; i != 6; i++) {
+
+            Location location = new Location(Bukkit.getWorld("world"), 0, 120, 0);
+
+            FallingBlock fallingBlock = Bukkit.getWorld("world").spawnFallingBlock(location, Material.ENDER_CHEST, (byte) 0);
+            fallingBlock.setVelocity(new Vector(Double.parseDouble("0." + new Random().nextInt(10)), 0.45, Double.parseDouble("0." + new Random().nextInt(10))));
+        }
+
+        d = 120;
+
     }
 
     private void handleEndState(Integer time) {
@@ -144,6 +169,13 @@ public class SimpleCountdownInitializer implements CountdownInitializer {
 
             Bukkit.broadcastMessage(CaptureTheBay.getPrefix() + "§cDer Server startet in " + time + " " + (time == 1 ? "Sekunde" : "Sekunden") + " §cneu!");
             Bukkit.getOnlinePlayers().forEach(player -> player.playSound(player.getEyeLocation(), Sound.NOTE_PLING, 1F, 1F));
+        }
+
+        if(time == 0) {
+
+            Bukkit.broadcastMessage(CaptureTheBay.getPrefix() + "§cDer Server startet jetzt neu!");
+
+            Bukkit.shutdown();
         }
     }
 }

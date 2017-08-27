@@ -79,4 +79,9 @@ public class DefinedTeam implements Team {
     public List<Player> getList() {
         return playerList;
     }
+
+    @Override
+    public void broadcast(String msg) {
+        playerList.forEach(player -> player.sendMessage(msg));
+    }
 }

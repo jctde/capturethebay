@@ -43,7 +43,6 @@ public class PlayerDamageByPlayerListener implements Listener {
             else
                 event.setCancelled(true);
         }
-
     }
 
 }

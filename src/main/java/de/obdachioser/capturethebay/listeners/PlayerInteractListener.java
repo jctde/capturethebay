@@ -40,8 +40,13 @@ public class PlayerInteractListener implements Listener {
             return;
         }
 
-
         if(event.getAction().equals(Action.RIGHT_CLICK_AIR) || event.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
+
+            if(event.getClickedBlock() != null && event.getClickedBlock().getType() == Material.ENDER_CHEST) {
+
+                event.setCancelled(true);
+                return;
+            }
 
             if(event.getItem() == null || event.getItem().getType() == Material.AIR) return;
 

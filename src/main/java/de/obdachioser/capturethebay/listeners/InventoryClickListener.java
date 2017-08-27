@@ -143,18 +143,6 @@ public class InventoryClickListener implements Listener {
                     ItemStackCreator.d(Material.LEATHER_CHESTPLATE, definedTeam.getTeamColor(), "§7Team " + definedTeam.getTeamDisplayName()),
                     player.getInventory().getHelmet()
             });
-
-            Teams.getTeam("default").remove(player.getName());
-
-            SimpleScoreboardTeam simpleScoreboardTeam = (SimpleScoreboardTeam) Teams.getTeam(definedTeam.getName());
-
-            if(simpleScoreboardTeam == null) simpleScoreboardTeam = (SimpleScoreboardTeam) Teams.createTeam(definedTeam.getName());
-
-            simpleScoreboardTeam.setPrefix(definedTeam.getTeamDisplayName() + " §7| " + definedTeam.getTeamColor().getColor());
-            simpleScoreboardTeam.setSuffix("§f");
-            simpleScoreboardTeam.add(player.getName());
-
-            player.updateInventory();
         }
     }
 }

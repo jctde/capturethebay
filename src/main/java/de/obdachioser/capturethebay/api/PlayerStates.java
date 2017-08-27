@@ -7,6 +7,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 
+import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -32,6 +34,9 @@ public class PlayerStates {
         if(player.getOpenInventory() != null)
             player.getOpenInventory().close();
 
+        if(playerCache.getCurrentTeam() != null)
+            playerCache.getCurrentTeam().removePlayer(player);
+
         CaptureTheBay.getGameSession().getPlayerCacheCacheHandler().all((id, cache) -> {
 
             if(cache.getEnumPlayerState() == EnumPlayerState.PLAYER)
@@ -44,10 +49,21 @@ public class PlayerStates {
 
                     TimeUnit.MILLISECONDS.sleep(550L);
                     player.setFlying(true);
+                    player.setAllowFlight(true);
 
                 } catch (Exception exc) {
                     exc.printStackTrace();
                 }
         });
+    }
+
+    private static Integer i = 0;
+
+    public static Integer getIngamePlayerSize() {
+
+        i = 0;
+
+        CaptureTheBay.getGameSession().getPlayerCacheCacheHandler().allValues(cache -> {if(cache.isIngame()) i++; });
+        return i;
     }
 }

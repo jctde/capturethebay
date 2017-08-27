@@ -34,4 +34,8 @@ public class PlayerCache {
 
     private KitState kitState;
 
+    public boolean isIngame() {
+        return enumPlayerState == EnumPlayerState.PLAYER;
+    }
+
 }

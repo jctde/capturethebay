@@ -22,4 +22,5 @@ public interface Team {
     void exec(Consumer<Player> playerConsumer);
     Player get(Integer i);
     List<Player> getList();
+    void broadcast(String msg);
 }

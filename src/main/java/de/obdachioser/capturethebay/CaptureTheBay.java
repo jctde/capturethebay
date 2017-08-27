@@ -4,11 +4,13 @@ import de.obdachioser.capturethebay.config.CurrentGameWorldConfiguration;
 import de.obdachioser.capturethebay.config.LocaleGameConfiguration;
 import de.obdachioser.capturethebay.listeners.*;
 import de.obdachioser.capturethebay.projectlisteners.GameStateChangeListener;
+import de.obdachioser.capturethebay.sessions.GamePlaySession;
 import de.obdachioser.capturethebay.sessions.GameSession;
 import lombok.Getter;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
+import java.util.concurrent.ExecutorService;
 
 /**
  * Created by ObdachIoser at 13:15 on 25.08.2017.
@@ -22,7 +24,13 @@ public class CaptureTheBay extends JavaPlugin {
     private static CaptureTheBay instance;
 
     @Getter
+    private static Thread mainThread = Thread.currentThread();
+
+    @Getter
     private static GameSession gameSession;
+
+    @Getter
+    private static GamePlaySession gamePlaySession;
 
     @Getter
     private static LocaleGameConfiguration localeGameConfiguration;
@@ -41,6 +49,7 @@ public class CaptureTheBay extends JavaPlugin {
     public void onEnable() {
 
         gameSession = new GameSession();
+        gamePlaySession = new GamePlaySession();
 
 //        localeGameConfiguration = new CurrentGameWorldConfiguration();
 //        localeGameConfiguration.apply(new File("plugins/CaptureTheBay", "config.yml"));

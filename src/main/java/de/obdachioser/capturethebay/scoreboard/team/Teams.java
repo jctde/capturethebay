@@ -31,12 +31,4 @@ public class Teams {
     public static DefinedScoreboardTeam getTeam(String name) {
         return (definedScoreboardTeamHashMap.containsKey(name) ? definedScoreboardTeamHashMap.get(name) : null);
     }
-
-    public static void sendAllTeams(Player player) {
-
-        for(DefinedScoreboardTeam definedScoreboardTeam : definedScoreboardTeamHashMap.values())
-            ((CraftPlayer) player).getHandle().playerConnection.sendPacket(
-                    ((SimpleScoreboardTeam) definedScoreboardTeam).newPacketPlayOutScoreboardTeam());
-
-    }
 }

@@ -84,20 +84,5 @@ public class PlayerJoinListener implements Listener {
         if(CaptureTheBay.getGameSession().getCurrentGameState() == GameState.LOBBY)
             Bukkit.broadcastMessage(CaptureTheBay.getPrefix() + "§f" + event.getPlayer().getName() + " §7hat das Spiel betreten. §7[§f" + Bukkit.getOnlinePlayers().size()
                     + "§7/"+CaptureTheBay.getGameSession().getMaxplayers()+"]");
-
-        Teams.sendAllTeams(event.getPlayer());
-        team(event.getPlayer());
-    }
-
-    private void team(Player player) {
-
-        SimpleScoreboardTeam simpleScoreboardTeam = (SimpleScoreboardTeam) Teams.getTeam("default");
-
-        if(simpleScoreboardTeam == null)
-            simpleScoreboardTeam = (SimpleScoreboardTeam) Teams.createTeam("default");
-
-        simpleScoreboardTeam.setPrefix("§7");
-        simpleScoreboardTeam.setSuffix("§f");
-        simpleScoreboardTeam.add(player.getName());
     }
 }

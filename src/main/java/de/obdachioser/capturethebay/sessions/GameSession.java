@@ -1,6 +1,7 @@
 package de.obdachioser.capturethebay.sessions;
 
 import com.google.common.collect.Maps;
+import de.obdachioser.capturethebay.CaptureTheBay;
 import de.obdachioser.capturethebay.api.DefinedTeam;
 import de.obdachioser.capturethebay.api.TeamColor;
 import de.obdachioser.capturethebay.api.Teams;
@@ -88,6 +89,8 @@ public class GameSession {
         Inventorys.prepareAll();
 
         registerKits();
+
+        CaptureTheBay.getGamePlaySession().accept(teams.all0());
     }
 
     public void stopSession() {

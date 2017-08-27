@@ -13,6 +13,6 @@ import net.minecraft.server.v1_8_R3.Scoreboard;
 public class Scoreboards {
 
     @Getter @Setter
-    public static Scoreboard scoreboard = new Scoreboard();
+    private static Scoreboard scoreboard = new Scoreboard();
 
 }

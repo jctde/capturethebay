@@ -1,8 +1,10 @@
 package de.obdachioser.capturethebay.config;
 
 import com.google.common.collect.Maps;
+import de.obdachioser.capturethebay.CaptureTheBay;
 import de.obdachioser.capturethebay.api.DefinedTeam;
 import de.obdachioser.capturethebay.api.Team;
+import de.obdachioser.capturethebay.api.Teams;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.Bukkit;
@@ -38,9 +40,15 @@ public class CurrentGameWorldConfiguration extends LocaleGameConfiguration {
 
     public CurrentGameWorldConfiguration apply(List<Team> teams) {
 
-        Random random = new Random();
+        teamLocations.put(CaptureTheBay.getGameSession().getTeams().getTeam("Rot"),
+                new Location(middleLocation.getWorld(), 50, 75, 50));
 
-        for(Team team : teams) teamLocations.put(team, new Location(middleLocation.getWorld(), random.nextInt(50), 100, random.nextInt(50)));
+        teamLocations.put(CaptureTheBay.getGameSession().getTeams().getTeam("Blau"),
+                new Location(middleLocation.getWorld(), 25, 75, 25));
+
+        teamLocations.put(CaptureTheBay.getGameSession().getTeams().getTeam("Grün"),
+                new Location(middleLocation.getWorld(), 0, 75, 0));
+
         return this;
     }
 

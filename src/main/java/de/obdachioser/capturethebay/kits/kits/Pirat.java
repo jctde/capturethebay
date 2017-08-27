@@ -29,9 +29,12 @@ public class Pirat extends DefaultKit implements Kit {
 
         this.kitContent = new KitContent(
                 new ItemStack[] {ItemStackCreator.a(Material.STONE_SWORD, "§7Piraten Schwert"),
-                        ItemStackCreator.a(Material.COOKED_BEEF, "§cSchweinefleisch")},
-                new ItemStack[] {null, ItemStackCreator.a(Material.LEATHER_LEGGINGS, "§ePiratenschutz"),
-                        ItemStackCreator.a(Material.LEATHER_CHESTPLATE, "§ePiratenschutz"), null}
+                        ItemStackCreator.a(Material.COOKED_BEEF, 16),
+                ItemStackCreator.a(Material.STONE_PICKAXE, "§fSteinspitzhacke")},
+                new ItemStack[] {ItemStackCreator.a(Material.GOLD_BOOTS, "§ePiratenschutz"),
+                        ItemStackCreator.a(Material.LEATHER_LEGGINGS, "§ePiratenschutz"),
+                        ItemStackCreator.a(Material.LEATHER_CHESTPLATE, "§ePiratenschutz"),
+                        ItemStackCreator.a(Material.GOLD_HELMET, "§ePiratenschutz")}
         );
     }
 

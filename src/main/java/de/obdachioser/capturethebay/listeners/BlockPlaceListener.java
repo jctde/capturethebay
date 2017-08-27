@@ -4,6 +4,7 @@ import de.obdachioser.capturethebay.CaptureTheBay;
 import de.obdachioser.capturethebay.countdown.GameState;
 import de.obdachioser.capturethebay.enums.EnumPlayerState;
 import lombok.Getter;
+import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPlaceEvent;
@@ -18,6 +19,12 @@ public class BlockPlaceListener implements Listener {
 
     @EventHandler
     public void blockPlace(BlockPlaceEvent event) {
+
+        if(event.getBlock().getType() == Material.ENDER_CHEST) {
+
+            event.setCancelled(true);
+            return;
+        }
 
         if(CaptureTheBay.getGameSession().getCurrentGameState() == GameState.INGAME)
             event.setCancelled(false);

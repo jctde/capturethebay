@@ -70,6 +70,10 @@ public class ItemStackCreator {
         return itemStack;
     }
 
+    public static ItemStack a(Material material, Integer i) {
+        return new ItemStack(material, i);
+    }
+
     public static ItemStack b(ItemStack itemStack, String name) {
 
         ItemMeta itemMeta = itemStack.getItemMeta();

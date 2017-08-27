@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import de.obdachioser.capturethebay.enums.EnumKitAction;
 import de.obdachioser.capturethebay.kits.Kit;
 import de.obdachioser.capturethebay.kits.KitContent;
+import de.obdachioser.capturethebay.utils.ItemStackCreator;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
@@ -26,8 +27,15 @@ public class Schmied implements Kit {
         this.name = getClass().getSimpleName();
         this.displayName = "§6§lSCHMIED";
         this.kitContent = new KitContent(
-                new ItemStack[] {},
-                new ItemStack[] {}
+                new ItemStack[] {ItemStackCreator.a(Material.IRON_SWORD, "§7Frisch Geschmiedetes Schwert"),
+                        ItemStackCreator.a(Material.GOLDEN_APPLE, 2),
+                        ItemStackCreator.a(Material.COOKED_BEEF, 8),
+                        ItemStackCreator.a(Material.STONE_PICKAXE, "§fSteinspitzhacke")},
+                new ItemStack[] {
+                        null,
+                        null,
+                        ItemStackCreator.a(Material.GOLD_CHESTPLATE, "§7Anzug des Schmiedes"),
+                        null}
         );
 
     }
@@ -49,7 +57,11 @@ public class Schmied implements Kit {
 
     @Override
     public List<String> description() {
-        return Lists.newArrayList("no description :)");
+        return Lists.newArrayList("",
+                "§7Die Waffen gehören dir..",
+                "§7Du bist der Schmied, zeig",
+                "§7allen was du kannst!",
+                "");
     }
 
     @Override
