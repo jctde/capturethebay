@@ -1,9 +1,11 @@
 package de.obdachioser.capturethebay.projectlisteners;
 
 import de.obdachioser.capturethebay.CaptureTheBay;
+import de.obdachioser.capturethebay.api.DefinedTeam;
 import de.obdachioser.capturethebay.cache.api.PlayerCache;
 import de.obdachioser.capturethebay.countdown.GameState;
 import de.obdachioser.capturethebay.events.TeamActionEvent;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -23,11 +25,6 @@ public class TeamActionListener implements Listener {
 
         if(event.getEnumTeamAction() == TeamActionEvent.EnumTeamAction.TEAM_JOIN &&
                 CaptureTheBay.getGameSession().getCurrentGameState() == GameState.INGAME) {
-
-            if(playerCache.isIngame()) {
-
-            }
-
         }
 
         if(event.getEnumTeamAction() == TeamActionEvent.EnumTeamAction.TEAM_LEAVE &&
@@ -35,6 +32,12 @@ public class TeamActionListener implements Listener {
 
             if(playerCache.isIngame()) {
 
+                if(event.getTeam().size() == 0) {
+
+                    Bukkit.broadcastMessage(CaptureTheBay.getPrefix() + "§cDas Team " + ((DefinedTeam) event.getTeam()).getTeamDisplayName() + " §cwurde vernichtet!");
+                    event.getTeam().removeGold(((DefinedTeam) event.getTeam()).getGold());
+                    CaptureTheBay.getGameSession().getTeams().removeTeam(((DefinedTeam) event.getTeam()).getName());
+                }
             }
         }
     }

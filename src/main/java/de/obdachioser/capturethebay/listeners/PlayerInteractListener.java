@@ -1,6 +1,9 @@
 package de.obdachioser.capturethebay.listeners;
 
 import de.obdachioser.capturethebay.CaptureTheBay;
+import de.obdachioser.capturethebay.api.DefinedTeam;
+import de.obdachioser.capturethebay.bay.Bay;
+import de.obdachioser.capturethebay.bay.SimpleBay;
 import de.obdachioser.capturethebay.cache.api.PlayerCache;
 import de.obdachioser.capturethebay.countdown.GameState;
 import de.obdachioser.capturethebay.enums.EnumInventoryType;
@@ -8,6 +11,7 @@ import de.obdachioser.capturethebay.enums.EnumPlayerInventoryType;
 import de.obdachioser.capturethebay.enums.EnumPlayerState;
 import de.obdachioser.capturethebay.inventorys.Inventorys;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.event.EventHandler;
@@ -49,6 +53,36 @@ public class PlayerInteractListener implements Listener {
             }
 
             if(event.getItem() == null || event.getItem().getType() == Material.AIR) return;
+
+            if(CaptureTheBay.getGameSession().getCurrentGameState() == GameState.INGAME) {
+
+                if(event.getClickedBlock().getType() == Material.BEDROCK) {
+
+                    if(CaptureTheBay.getGamePlaySession().getBays().existBay(event.getClickedBlock().getLocation())) {
+
+                        Bukkit.broadcastMessage("ALREADY FOUND!");
+                        return;
+                    }
+
+                    Bukkit.broadcastMessage("NOT FOUND!");
+                    CaptureTheBay.getGamePlaySession().getBays().foundBay(new SimpleBay(event.getPlayer(), event.getClickedBlock().getLocation()));
+                }
+
+                if(event.getClickedBlock().getType() == Material.COBBLE_WALL) {
+
+                    if(event.getClickedBlock().getType() == Material.BEDROCK) {
+
+                        if(CaptureTheBay.getGamePlaySession().getBays().existBay(event.getClickedBlock().getLocation())) {
+
+                            Bukkit.broadcastMessage("ALREADY FOUND!");
+                            return;
+                        }
+
+                        Bukkit.broadcastMessage("NOT FOUND!");
+                        CaptureTheBay.getGamePlaySession().getBays().foundBay(new SimpleBay(event.getPlayer(), event.getClickedBlock().getLocation()));
+                    }
+                }
+            }
 
             if(CaptureTheBay.getGameSession().getCurrentGameState() == GameState.LOBBY) {
 

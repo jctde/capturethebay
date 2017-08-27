@@ -23,4 +23,6 @@ public interface Team {
     Player get(Integer i);
     List<Player> getList();
     void broadcast(String msg);
+    void addGold(Integer d);
+    void removeGold(Integer d);
 }

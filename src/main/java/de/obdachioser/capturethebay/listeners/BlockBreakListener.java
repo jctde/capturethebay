@@ -4,6 +4,7 @@ import de.obdachioser.capturethebay.CaptureTheBay;
 import de.obdachioser.capturethebay.cache.api.PlayerCache;
 import de.obdachioser.capturethebay.countdown.GameState;
 import de.obdachioser.capturethebay.enums.EnumPlayerState;
+import de.obdachioser.capturethebay.events.EnderChestBreaKEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -30,28 +31,8 @@ public class BlockBreakListener implements Listener {
 
             if(event.getBlock().getType() == Material.ENDER_CHEST) {
 
+                Bukkit.getPluginManager().callEvent(new EnderChestBreaKEvent(event.getPlayer(), event.getBlock()));
                 event.setCancelled(true);
-                event.getBlock().getLocation().getBlock().setType(Material.AIR);
-
-                if(new Random().nextInt(8) == 3) {
-
-                    PlayerCache playerCache = CaptureTheBay.getGameSession().getPlayerCacheCacheHandler().get(event.getPlayer().getUniqueId());
-
-                    playerCache.getCurrentTeam().broadcast(CaptureTheBay.getPrefix() + playerCache.getGameDisplayName() + "§7 hat §6Gold §7gefunden!");
-                    return;
-                }
-
-                Integer d = new Random().nextInt(4);
-                while(d == 0) d = new Random().nextInt(4);
-
-                Bukkit.broadcastMessage("d.: " + d);
-
-                for(Integer i = d; i != 0; i--) {
-
-                    event.getBlock().getWorld().dropItem(event.getBlock().getLocation(),
-                            CaptureTheBay.getGamePlaySession().getItemStackDropList().get(new Random().nextInt
-                                    (CaptureTheBay.getGamePlaySession().getItemStackDropList().size())));
-                }
             }
 
         } else

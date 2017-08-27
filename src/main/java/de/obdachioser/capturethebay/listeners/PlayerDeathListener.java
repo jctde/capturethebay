@@ -1,6 +1,7 @@
 package de.obdachioser.capturethebay.listeners;
 
 import de.obdachioser.capturethebay.CaptureTheBay;
+import de.obdachioser.capturethebay.cache.api.PlayerCache;
 import de.obdachioser.capturethebay.enums.EnumPlayerState;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -17,10 +18,33 @@ public class PlayerDeathListener implements Listener {
     @EventHandler
     public void playerDeath(PlayerDeathEvent event) {
 
-
         if(CaptureTheBay.getGameSession().getPlayerCacheCacheHandler().get(event.getEntity().getUniqueId()).getEnumPlayerState() == EnumPlayerState.SPECTATOR)
             return;
 
-    }
+        PlayerCache entity = CaptureTheBay.getGameSession().getPlayerCacheCacheHandler().get(event.getEntity().getUniqueId());
 
+        event.setDroppedExp(0);
+        event.setNewTotalExp(0);
+        event.setKeepLevel(false);
+
+        if(event.getEntity().getKiller() == null) {
+
+            entity.setLives(entity.getLives()-1);
+            entity.setDeaths(entity.getDeaths()+1);
+
+            if(entity.getLives() == 0) {
+
+                entity.getCurrentTeam().broadcast(CaptureTheBay.getPrefix() + entity.getGameDisplayName() + " §7ist ausgeschieden.");
+                entity.getCurrentTeam().removePlayer(event.getEntity());
+            }
+
+            event.setDeathMessage(CaptureTheBay.getPrefix() + entity.getGameDisplayName() + " §7ist gestorben.");
+            return;
+        }
+
+        PlayerCache killer = CaptureTheBay.getGameSession().getPlayerCacheCacheHandler().get(event.getEntity().getKiller().getUniqueId());
+        killer.setKills(killer.getKills()+1);
+
+        event.setDeathMessage(CaptureTheBay.getPrefix() + entity.getGameDisplayName() + " §7wurde von " + killer.getGameDisplayName() + " §7getötet.");
+    }
 }

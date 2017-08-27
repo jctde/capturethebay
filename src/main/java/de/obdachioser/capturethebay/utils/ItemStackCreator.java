@@ -120,4 +120,16 @@ public class ItemStackCreator {
         itemStack.setItemMeta(leatherArmorMeta);
         return itemStack;
     }
+
+    public static ItemStack d(Material material, TeamColor teamColor) {
+
+        Short id = null;
+
+        if(teamColor == TeamColor.RED) id = 14;
+        else if(teamColor == TeamColor.BLUE) id = 11;
+        else if(teamColor == TeamColor.GREEN) id = 13;
+        else if(teamColor == TeamColor.YELLOW) id = 4;
+
+        return new ItemStack(material, 1, id);
+    }
 }

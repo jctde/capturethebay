@@ -3,6 +3,8 @@ package de.obdachioser.capturethebay.sessions;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import de.obdachioser.capturethebay.api.Team;
+import de.obdachioser.capturethebay.bay.Bay;
+import de.obdachioser.capturethebay.bay.Bays;
 import de.obdachioser.capturethebay.scoreboard.ScoreboardHandler;
 import de.obdachioser.capturethebay.utils.ItemStackCreator;
 import lombok.Getter;
@@ -23,8 +25,10 @@ import java.util.List;
 public class GamePlaySession {
 
     private List<ItemStack> itemStackDropList = Lists.newArrayList();
+    private List<String> bayNames = Lists.newArrayList("Caragu'i", "Kartina", "Floranzadawa", "Kortel'ia", "Sawasaki", "Mahamas",
+            "Obakamaha", "Karasaki", "De'eunish", "Marakahm");
 
-    private HashMap<Team, Integer> teamGold = Maps.newHashMap();
+    private Bays bays = new Bays();
 
     private ScoreboardHandler ingameScoreboardHandler = new ScoreboardHandler(
             "§f§lAUIHUB.NET",
@@ -42,9 +46,5 @@ public class GamePlaySession {
                 ItemStackCreator.a(Material.IRON_SWORD, 1), ItemStackCreator.a(Material.IRON_INGOT, 16),
                 ItemStackCreator.a(Material.WOOD, 63),  ItemStackCreator.a(Material.IRON_PICKAXE, 1),
                 ItemStackCreator.a(Material.IRON_AXE, 1), ItemStackCreator.a(Material.IRON_SWORD, 1)));
-    }
-
-    public void accept(List<Team> teamList) {
-        for(Team team : teamList) teamGold.put(team, 5);
     }
 }

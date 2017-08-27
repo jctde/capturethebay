@@ -27,6 +27,8 @@ public class DefinedTeam implements Team {
     private TeamColor teamColor = null;
     private ExecutorService executorService = Executors.newFixedThreadPool(2);
 
+    private Integer gold = 5;
+
     private String teamDisplayName;
 
     public DefinedTeam(TeamColor teamColor) {
@@ -83,5 +85,19 @@ public class DefinedTeam implements Team {
     @Override
     public void broadcast(String msg) {
         playerList.forEach(player -> player.sendMessage(msg));
+    }
+
+    public boolean hasGold(Integer d) {
+        return d >= gold;
+    }
+
+    @Override
+    public void addGold(Integer d) {
+        gold += d;
+    }
+
+    @Override
+    public void removeGold(Integer d) {
+        gold -= d;
     }
 }
