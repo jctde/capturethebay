@@ -8,6 +8,7 @@ import de.obdachioser.capturethebay.countdown.GameState;
 import de.obdachioser.capturethebay.enums.EnumPlayerState;
 import de.obdachioser.capturethebay.events.EnderChestBreaKEvent;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.event.EventHandler;
@@ -37,11 +38,16 @@ public class BlockBreakListener implements Listener {
             return;
         }
 
-        for(Team team : CaptureTheBay.getGameSession().getTeams().all0()) {
+        if(event.getBlock().getType() == Material.COBBLE_WALL) {
 
-            if(CaptureTheBay.getCurrentGameWorldConfiguration().getTeamLocations().get(team) == event.getBlock().getLocation()) {
-                event.getPlayer().sendMessage(CaptureTheBay.getPrefix()
-                        + "§cDu darfst den Spawnpoint von Team " + ((DefinedTeam) team).getTeamDisplayName() +" §cnicht abbauen1");
+            Location location = event.getBlock().getLocation().clone();
+            location.setY(location.getY()-1);
+
+            if(location.getBlock().getType() == Material.BEDROCK) {
+
+                event.getPlayer().sendMessage(CaptureTheBay.getPrefix() + "§cDu kannst keinen Bucht-Markierten Ort abbauen.");
+                event.setCancelled(true);
+                return;
             }
         }
 

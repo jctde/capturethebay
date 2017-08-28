@@ -1,10 +1,11 @@
 package de.obdachioser.capturethebay.bay;
 
 import de.obdachioser.capturethebay.CaptureTheBay;
+import de.obdachioser.capturethebay.api.BiObject;
 import de.obdachioser.capturethebay.api.Team;
 import de.obdachioser.capturethebay.events.BayCaptureEvent;
 import de.obdachioser.capturethebay.events.BayFoundEvent;
-import de.obdachioser.capturethebay.events.PrepareBayBuyEvent;
+import gnu.trove.list.array.TByteArrayList;
 import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -22,7 +23,7 @@ import org.bukkit.entity.Player;
 public class SimpleBay implements Bay {
 
     private String name;
-    private Block block;
+    private BiObject<Block, Block> biObject;
 
     private Team team;
     private Player nativeFounder;
@@ -31,17 +32,15 @@ public class SimpleBay implements Bay {
 
     private Integer goldPrice;
 
-    public SimpleBay(Player founder, Block block) {
+    public SimpleBay(Player founder, BiObject<Block, Block> biObject) {
+
+        this.biObject = biObject;
 
         this.nativeFounder = founder;
         this.newFounder = founder;
-        this.blockLocation = block.getLocation();
-        this.block = block;
 
         this.team = CaptureTheBay.getGameSession().getPlayerCacheCacheHandler().get(founder.getUniqueId()).getCurrentTeam();
         this.name = RandomBayName.getRandomName();
-
-        Bukkit.getPluginManager().callEvent(new BayFoundEvent(founder, name, blockLocation));
     }
 
     @Override

@@ -16,6 +16,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
+import org.bukkit.block.Block;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
@@ -72,13 +73,49 @@ public class PlayerInteractListener implements Listener {
 
                 if(event.getClickedBlock() == null || event.getClickedBlock().getType() == Material.AIR) return;
 
-                BayBlockInteractEvent bayBlockInteractEvent = new BayBlockInteractEvent(false, event.getPlayer(), event.getClickedBlock());
-                Executors.newCachedThreadPool().execute(() -> Bukkit.getPluginManager().callEvent(bayBlockInteractEvent));
+                Block bedrockBlock = null;
+                Block wallBlock = null;
 
-                if(bayBlockInteractEvent.isCancelled()) {
+                if(event.getClickedBlock().getType() == Material.BEDROCK) {
 
-                    event.setCancelled(true);
-                    return;
+                    bedrockBlock = event.getClickedBlock();
+
+                    Location location = event.getClickedBlock().getLocation().clone();
+                    location.setY(location.getY()+1);
+
+                    if(location.getBlock().getType() != Material.COBBLE_WALL) return;
+
+                    Bukkit.broadcastMessage("Accept: Cobble");
+
+                    wallBlock = location.getBlock();
+                }
+
+                if(event.getClickedBlock().getType() == Material.COBBLE_WALL) {
+
+                    wallBlock = event.getClickedBlock();
+
+                    Location location = event.getClickedBlock().getLocation().clone();
+                    location.setY(location.getY()-1);
+
+                    if(location.getBlock().getType() != Material.BEDROCK) return;
+
+                    Bukkit.broadcastMessage("Accept: Bedrock");
+
+                    bedrockBlock = location.getBlock();
+                }
+
+                if(bedrockBlock != null && wallBlock != null) {
+
+                    BayBlockInteractEvent bayBlockInteractEvent = new BayBlockInteractEvent(false, event.getPlayer(), wallBlock, bedrockBlock);
+                    Bukkit.getPluginManager().callEvent(bayBlockInteractEvent);
+
+                    Bukkit.broadcastMessage("Accept: do");
+
+                    if(bayBlockInteractEvent.isCancelled()) {
+
+                        event.setCancelled(true);
+                        return;
+                    }
                 }
             }
 

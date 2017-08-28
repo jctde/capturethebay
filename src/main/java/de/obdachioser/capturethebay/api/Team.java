@@ -1,6 +1,7 @@
 package de.obdachioser.capturethebay.api;
 
 import com.google.common.collect.Lists;
+import de.obdachioser.capturethebay.bay.Bay;
 import org.bukkit.entity.Player;
 
 import java.util.List;
@@ -22,6 +23,7 @@ public interface Team {
     void broadcast(String msg);
     void addGold(Integer d);
     void removeGold(Integer d);
+    List<Bay> getCapturedBays();
     boolean isAlive();
     void setAlive(Boolean b);
 }

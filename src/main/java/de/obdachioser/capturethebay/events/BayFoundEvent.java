@@ -1,9 +1,11 @@
 package de.obdachioser.capturethebay.events;
 
+import de.obdachioser.capturethebay.api.BiObject;
 import de.obdachioser.capturethebay.bay.Bay;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.bukkit.Location;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
@@ -22,7 +24,7 @@ public class BayFoundEvent extends Event {
 
     private Player player;
     private String bayName;
-    private Location location;
+    private BiObject<Block, Block> biObject;
 
     @Override
     public HandlerList getHandlers() {

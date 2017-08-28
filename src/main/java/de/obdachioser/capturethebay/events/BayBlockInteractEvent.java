@@ -26,7 +26,8 @@ public class BayBlockInteractEvent extends Event {
     private boolean cancelled = false;
 
     private Player player;
-    private Block clickedBlock;
+    private Block wallBlock;
+    private Block bedrockBlock;
 
     @Override
     public HandlerList getHandlers() {

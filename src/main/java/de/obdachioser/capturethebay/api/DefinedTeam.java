@@ -2,6 +2,7 @@ package de.obdachioser.capturethebay.api;
 
 import com.google.common.collect.Lists;
 import de.obdachioser.capturethebay.CaptureTheBay;
+import de.obdachioser.capturethebay.bay.Bay;
 import de.obdachioser.capturethebay.cache.api.PlayerCache;
 import de.obdachioser.capturethebay.events.TeamActionEvent;
 import de.obdachioser.capturethebay.sessions.GameSession;
@@ -27,6 +28,8 @@ public class DefinedTeam implements Team {
     private String name = null;
     private TeamColor teamColor = null;
     private ExecutorService executorService = Executors.newFixedThreadPool(2);
+
+    private List<Bay> capturedBays = Lists.newArrayList();
 
     private Integer gold = 5;
 
@@ -109,5 +112,10 @@ public class DefinedTeam implements Team {
     @Override
     public void setAlive(Boolean b) {
         this.alive = b;
+    }
+
+    @Override
+    public List<Bay> getCapturedBays() {
+        return capturedBays;
     }
 }

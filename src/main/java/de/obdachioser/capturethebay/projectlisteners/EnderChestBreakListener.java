@@ -23,11 +23,12 @@ public class EnderChestBreakListener implements Listener {
 
         event.getBlock().getLocation().getBlock().setType(Material.AIR);
 
-        if(new Random().nextInt(8) == 3) {
+        Integer f = new Random().nextInt(24);
+
+        if(f == 3 || f == 16 || f == 23) {
 
             PlayerCache playerCache = CaptureTheBay.getGameSession().getPlayerCacheCacheHandler().get(event.getPlayer().getUniqueId());
             playerCache.getCurrentTeam().broadcast(CaptureTheBay.getPrefix() + playerCache.getGameDisplayName() + "§7 hat §6Gold §7gefunden!");
-
             playerCache.getCurrentTeam().addGold(1);
             return;
         }
