@@ -17,7 +17,6 @@ public interface Team {
     void addPlayer(Player player);
     void removePlayer(Player player);
     int size();
-    void exec(Consumer<Player> playerConsumer);
     Player get(Integer i);
     List<Player> getList();
     void broadcast(String msg);

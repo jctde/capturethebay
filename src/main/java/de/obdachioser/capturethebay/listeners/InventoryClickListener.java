@@ -15,6 +15,7 @@ import de.obdachioser.capturethebay.kits.Kits;
 import de.obdachioser.capturethebay.scoreboard.team.SimpleScoreboardTeam;
 import de.obdachioser.capturethebay.scoreboard.team.Teams;
 import de.obdachioser.capturethebay.utils.ItemStackCreator;
+import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -49,6 +50,27 @@ public class InventoryClickListener implements Listener {
             event.setCancelled(true);
         }
 
+        PlayerCache playerCache = CaptureTheBay.getGameSession().getPlayerCacheCacheHandler().get(player.getUniqueId());
+
+        if(!playerCache.isIngame()) {
+
+            event.setCancelled(true);
+
+            if(event.getInventory().getTitle().contains("Spieler die im Spiel sind")) {
+
+                if (event.getCurrentItem().getType() == Material.STAINED_GLASS_PANE ||
+                        event.getCurrentItem().getType() == Material.BEACON) return;
+
+                String playerName = event.getCurrentItem().getItemMeta().getDisplayName().replace("§f§l", "");
+
+                player.closeInventory();
+                player.playSound(player.getEyeLocation(), Sound.ENDERMAN_TELEPORT, 1F, 1F);
+                player.teleport(Bukkit.getPlayer(playerName).getLocation());
+            }
+
+            return;
+        }
+
         if(event.getInventory().getTitle().contains("Deine Kits")) {
 
             if (event.getCurrentItem().getType() == Material.STAINED_GLASS_PANE ||
@@ -58,7 +80,6 @@ public class InventoryClickListener implements Listener {
                 return;
             }
 
-            PlayerCache playerCache = CaptureTheBay.getGameSession().getPlayerCacheCacheHandler().get(player.getUniqueId());
             KitsInventory kitsInventory = (KitsInventory) playerCache.getPlayerInventoryMap().get(EnumPlayerInventoryType.PLAYER_KITS);
 
             Kit kit = kitsInventory.getKit(event.getCurrentItem());
@@ -102,8 +123,6 @@ public class InventoryClickListener implements Listener {
             TeamInventory teamInventory = (TeamInventory) Inventorys.getInventoryTypeInventoryHashMap().get(EnumInventoryType.TEAMS_INVENTORY);
 
             String replace = "";
-
-            PlayerCache playerCache = CaptureTheBay.getGameSession().getPlayerCacheCacheHandler().get(player.getUniqueId());
 
             if(playerCache.getCurrentTeam() == null)
                 replace = " §ckein Team";

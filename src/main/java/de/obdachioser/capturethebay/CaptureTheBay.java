@@ -88,9 +88,12 @@ public class CaptureTheBay extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new PlayerDropItemListener(), this);
         getServer().getPluginManager().registerEvents(new FoodLevelChangeListener(), this);
         getServer().getPluginManager().registerEvents(new InventoryClickListener(), this);
+        getServer().getPluginManager().registerEvents(new PlayerRespawnListener(), this);
 
         getServer().getPluginManager().registerEvents(new PlayerInventoryItemHoldListener(), this);
         getServer().getPluginManager().registerEvents(new InventoryCloseListener(), this);
+        getServer().getPluginManager().registerEvents(new PlayerCraftItemListener(), this);
+        getServer().getPluginManager().registerEvents(new PlayerPickupItemListener(), this);
 
         getServer().getPluginManager().registerEvents(new BayFoundListener(), this);
         getServer().getPluginManager().registerEvents(new EnderChestBreakListener(), this);

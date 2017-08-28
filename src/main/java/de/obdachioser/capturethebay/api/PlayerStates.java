@@ -31,9 +31,15 @@ public class PlayerStates {
         PlayerCache playerCache = CaptureTheBay.getGameSession().getPlayerCacheCacheHandler().get(player.getUniqueId());
         playerCache.setEnumPlayerState(EnumPlayerState.SPECTATOR);
 
+        player.setHealth(20);
+        player.setFoodLevel(20);
+
         player.getInventory().clear();
         player.getInventory().setArmorContents(new ItemStack[] {null, null, null, null});
         player.getInventory().setItem(0, ItemStackCreator.a(Material.COMPASS, "§cTeleporter §7§o(Rechtsklick)"));
+
+        player.setAllowFlight(true);
+        player.setFlying(true);
 
         player.setVelocity(new Vector(0, 1.5, 0));
 
@@ -54,8 +60,6 @@ public class PlayerStates {
                 try {
 
                     TimeUnit.MILLISECONDS.sleep(550L);
-                    player.setFlying(true);
-                    player.setAllowFlight(true);
 
                 } catch (Exception exc) {
                     exc.printStackTrace();

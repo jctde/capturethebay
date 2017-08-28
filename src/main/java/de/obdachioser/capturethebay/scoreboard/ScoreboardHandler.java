@@ -92,8 +92,8 @@ public class ScoreboardHandler {
     public void sendTestScoreboard(Player player) {
 
         ScoreboardTeam scoreboardTeam = new ScoreboardTeam(scoreboard, "");
-        scoreboardTeam.setPrefix("§c");
-        scoreboardTeam.setSuffix("§e");
+        scoreboardTeam.setPrefix("§fDu bist §f§l");
+        scoreboardTeam.setSuffix("§f!");
         scoreboardTeam.b(ScoreboardTeamBase.EnumNameTagVisibility.ALWAYS);
 
         scoreboardTeam.getPlayerNameSet().add(player.getName());

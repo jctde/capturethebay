@@ -40,8 +40,8 @@ public class PlayerQuitListener implements Listener {
         if(playerCache.getCurrentTeam() != null) {
 
             if(CaptureTheBay.getGameSession().getCurrentGameState() == GameState.INGAME)
-                playerCache.getCurrentTeam().exec(player -> player.sendMessage
-                        (CaptureTheBay.getPrefix() + playerCache.getGameDisplayName() + " §7hat das Team verlassen."));
+                playerCache.getCurrentTeam().broadcast(
+                        CaptureTheBay.getPrefix() + playerCache.getGameDisplayName() + " §7hat das Team verlassen.");
 
             ((TeamInventory) Inventorys.getInventoryTypeInventoryHashMap().get(EnumInventoryType.TEAMS_INVENTORY))
                     .removePlayerFromLore(event.getPlayer(), (DefinedTeam) playerCache.getCurrentTeam());

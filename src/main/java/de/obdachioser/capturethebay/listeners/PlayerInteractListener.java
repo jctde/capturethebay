@@ -9,6 +9,7 @@ import de.obdachioser.capturethebay.countdown.GameState;
 import de.obdachioser.capturethebay.enums.EnumInventoryType;
 import de.obdachioser.capturethebay.enums.EnumPlayerInventoryType;
 import de.obdachioser.capturethebay.enums.EnumPlayerState;
+import de.obdachioser.capturethebay.events.BayBlockInteractEvent;
 import de.obdachioser.capturethebay.inventorys.Inventorys;
 import de.obdachioser.capturethebay.inventorys.TeleporterInventory;
 import org.bukkit.Bukkit;
@@ -21,6 +22,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 
 import java.awt.*;
+import java.util.concurrent.Executors;
 
 /**
  * Created by ObdachIoser at 17:54 on 25.08.2017.
@@ -41,6 +43,19 @@ public class PlayerInteractListener implements Listener {
 
         if(CaptureTheBay.getGameSession().getPlayerCacheCacheHandler().get(event.getPlayer().getUniqueId()).getEnumPlayerState() == EnumPlayerState.SPECTATOR) {
 
+            PlayerCache playerCache = CaptureTheBay.getGameSession().getPlayerCacheCacheHandler().get(event.getPlayer().getUniqueId());
+
+            if(event.getItem() == null || event.getItem().getType() == Material.AIR) return;
+
+            if(event.getItem().getType() == Material.COMPASS) {
+
+                TeleporterInventory teleporterInventory = (TeleporterInventory)
+                        Inventorys.getInventoryTypeInventoryHashMap().get(EnumInventoryType.TELEPORTER_INVENTORY);
+
+                event.getPlayer().openInventory(teleporterInventory.get());
+                event.getPlayer().playSound(event.getPlayer().getEyeLocation(), Sound.CHEST_OPEN, 1F, 1F);
+            }
+
             event.setCancelled(true);
             return;
         }
@@ -57,52 +72,17 @@ public class PlayerInteractListener implements Listener {
 
                 if(event.getClickedBlock() == null || event.getClickedBlock().getType() == Material.AIR) return;
 
-                if(event.getClickedBlock().getType() == Material.BEDROCK) {
+                BayBlockInteractEvent bayBlockInteractEvent = new BayBlockInteractEvent(false, event.getPlayer(), event.getClickedBlock());
+                Executors.newCachedThreadPool().execute(() -> Bukkit.getPluginManager().callEvent(bayBlockInteractEvent));
 
-                    if(CaptureTheBay.getGamePlaySession().getBays().existBay(event.getClickedBlock().getLocation())) {
+                if(bayBlockInteractEvent.isCancelled()) {
 
-                        Bukkit.broadcastMessage("ALREADY FOUND!");
-                        return;
-                    }
-
-                    Bukkit.broadcastMessage("NOT FOUND!");
-                    CaptureTheBay.getGamePlaySession().getBays().foundBay(new SimpleBay(event.getPlayer(), event.getClickedBlock().getLocation()));
-                }
-
-                if(event.getClickedBlock().getType() == Material.COBBLE_WALL) {
-
-                    if(event.getClickedBlock().getType() == Material.BEDROCK) {
-
-                        if(CaptureTheBay.getGamePlaySession().getBays().existBay(event.getClickedBlock().getLocation())) {
-
-                            Bukkit.broadcastMessage("ALREADY FOUND!");
-                            return;
-                        }
-
-                        Bukkit.broadcastMessage("NOT FOUND!");
-                        CaptureTheBay.getGamePlaySession().getBays().foundBay(new SimpleBay(event.getPlayer(), event.getClickedBlock().getLocation()));
-                    }
+                    event.setCancelled(true);
+                    return;
                 }
             }
 
             if(event.getItem() == null || event.getItem().getType() == Material.AIR) return;
-
-            if(CaptureTheBay.getGameSession().getCurrentGameState() == GameState.INGAME) {
-
-                PlayerCache playerCache = CaptureTheBay.getGameSession().getPlayerCacheCacheHandler().get(event.getPlayer().getUniqueId());
-
-                if(event.getItem().getType() == Material.COMPASS) {
-
-                    if(playerCache.getEnumPlayerState() == EnumPlayerState.PLAYER) return;
-
-                    TeleporterInventory teleporterInventory = (TeleporterInventory)
-                            Inventorys.getInventoryTypeInventoryHashMap().get(EnumInventoryType.TELEPORTER_INVENTORY);
-
-                    event.getPlayer().openInventory(teleporterInventory.get());
-                    event.getPlayer().playSound(event.getPlayer().getEyeLocation(), Sound.CHEST_OPEN, 1F, 1F);
-                    return;
-                }
-            }
 
             if(CaptureTheBay.getGameSession().getCurrentGameState() == GameState.LOBBY) {
 

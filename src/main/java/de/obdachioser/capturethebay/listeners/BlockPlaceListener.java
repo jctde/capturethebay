@@ -20,6 +20,8 @@ public class BlockPlaceListener implements Listener {
     @EventHandler
     public void blockPlace(BlockPlaceEvent event) {
 
+        event.getPlayer().updateInventory();
+
         if(event.getBlock().getType() == Material.ENDER_CHEST) {
 
             event.setCancelled(true);

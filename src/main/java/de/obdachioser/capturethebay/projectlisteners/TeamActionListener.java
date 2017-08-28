@@ -58,7 +58,13 @@ public class TeamActionListener implements Listener {
 
                     if(i <= 1) {
 
-                        if(i == 0) CaptureTheBay.getGameSession().getCountdownHandler().switchState(GameState.END);
+                        if(i == 0) {
+
+                            CaptureTheBay.getGameSession().getCountdownHandler().switchState(GameState.END);
+                            Bukkit.broadcastMessage(CaptureTheBay.getPrefix() + "Kein Team hat das Spiel gewonnen!");
+                            return;
+                        }
+
                         if(i == 1) {
 
                             DefinedTeam definedTeam = (DefinedTeam) CaptureTheBay.getGameSession().getTeams().getLastAliveTeam();

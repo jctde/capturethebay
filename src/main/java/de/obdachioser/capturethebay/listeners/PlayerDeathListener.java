@@ -1,11 +1,18 @@
 package de.obdachioser.capturethebay.listeners;
 
 import de.obdachioser.capturethebay.CaptureTheBay;
+import de.obdachioser.capturethebay.api.PlayerStates;
 import de.obdachioser.capturethebay.cache.api.PlayerCache;
 import de.obdachioser.capturethebay.enums.EnumPlayerState;
+import net.minecraft.server.v1_8_R3.PacketPlayInClientCommand;
+import org.bukkit.Bukkit;
+import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
+
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by ObdachIoser at 20:42 on 25.08.2017.
@@ -30,16 +37,33 @@ public class PlayerDeathListener implements Listener {
         entity.setLives(entity.getLives()-1);
         entity.setDeaths(entity.getDeaths()+1);
 
-        if(entity.getLives() == 0) {
+        Executors.newCachedThreadPool().execute(() -> {
 
-            entity.getCurrentTeam().broadcast(CaptureTheBay.getPrefix() + entity.getGameDisplayName() + " §7ist ausgeschieden.");
-            entity.setEnumPlayerState(EnumPlayerState.SPECTATOR);
-            entity.getCurrentTeam().removePlayer(event.getEntity());
-        }
+            try {
+
+                TimeUnit.MILLISECONDS.sleep(45L);
+
+                ((CraftPlayer) event.getEntity()).getHandle().playerConnection
+                        .a(new PacketPlayInClientCommand(PacketPlayInClientCommand.EnumClientCommand.PERFORM_RESPAWN));
+
+            } catch (Exception exc) {
+                exc.printStackTrace();
+            }
+        });
 
         if(event.getEntity().getKiller() == null) {
 
             event.setDeathMessage(CaptureTheBay.getPrefix() + entity.getGameDisplayName() + " §7ist gestorben.");
+
+            if(entity.getLives() == 0) {
+
+                Bukkit.broadcastMessage(CaptureTheBay.getPrefix() + entity.getGameDisplayName() + " §7ist ausgeschieden.");
+                entity.getCurrentTeam().removePlayer(event.getEntity());
+                entity.setEnumPlayerState(EnumPlayerState.SPECTATOR);
+
+                PlayerStates.setSpectator(event.getEntity());
+            }
+
             return;
         }
 
@@ -47,5 +71,14 @@ public class PlayerDeathListener implements Listener {
         killer.setKills(killer.getKills()+1);
 
         event.setDeathMessage(CaptureTheBay.getPrefix() + entity.getGameDisplayName() + " §7wurde von " + killer.getGameDisplayName() + " §7getötet.");
+
+        if(entity.getLives() == 0) {
+
+            Bukkit.broadcastMessage(CaptureTheBay.getPrefix() + entity.getGameDisplayName() + " §7ist ausgeschieden.");
+            entity.getCurrentTeam().removePlayer(event.getEntity());
+            entity.setEnumPlayerState(EnumPlayerState.SPECTATOR);
+
+            PlayerStates.setSpectator(event.getEntity());
+        }
     }
 }

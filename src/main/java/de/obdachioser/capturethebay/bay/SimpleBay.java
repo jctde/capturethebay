@@ -8,6 +8,7 @@ import de.obdachioser.capturethebay.events.PrepareBayBuyEvent;
 import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 
 /**
@@ -21,6 +22,8 @@ import org.bukkit.entity.Player;
 public class SimpleBay implements Bay {
 
     private String name;
+    private Block block;
+
     private Team team;
     private Player nativeFounder;
     private Player newFounder;
@@ -28,11 +31,12 @@ public class SimpleBay implements Bay {
 
     private Integer goldPrice;
 
-    public SimpleBay(Player founder, Location blockLocation) {
+    public SimpleBay(Player founder, Block block) {
 
         this.nativeFounder = founder;
         this.newFounder = founder;
-        this.blockLocation = blockLocation;
+        this.blockLocation = block.getLocation();
+        this.block = block;
 
         this.team = CaptureTheBay.getGameSession().getPlayerCacheCacheHandler().get(founder.getUniqueId()).getCurrentTeam();
         this.name = RandomBayName.getRandomName();

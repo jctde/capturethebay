@@ -32,7 +32,7 @@ public class DefinedTeam implements Team {
 
     private List<Player> playerList = Lists.newArrayList();
 
-    private boolean alive = false;
+    private boolean alive = true;
 
     private String teamDisplayName;
 
@@ -58,11 +58,6 @@ public class DefinedTeam implements Team {
     @Override
     public int size() {
         return playerList.size();
-    }
-
-    @Override
-    public void exec(Consumer<Player> playerConsumer) {
-        executorService.execute(() -> playerList.forEach(playerConsumer));
     }
 
     @Override

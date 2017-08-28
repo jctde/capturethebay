@@ -54,7 +54,27 @@ public class TeleporterInventory implements DefinedInventory {
         if(enumTeamAction == TeamActionEvent.EnumTeamAction.TEAM_JOIN)
             this.inventory.addItem(ItemStackCreator.f(player.getName(), "§f§l" + player.getName()));
         else if(enumTeamAction == TeamActionEvent.EnumTeamAction.TEAM_LEAVE) {
-            this.inventory.remove(get(player));
+
+            ItemStack itemStack = get(player);
+
+            if(itemStack == null) return;
+            this.inventory.remove(itemStack);
+        }
+    }
+
+    public void setAll() {
+
+        for(Integer i = 8; i != 35; i++) inventory.setItem(i, new ItemStack(Material.AIR));
+
+        Integer i = 9;
+
+        for(Player player : Bukkit.getOnlinePlayers()) {
+
+            if(CaptureTheBay.getGameSession().getPlayerCacheCacheHandler().get(player.getUniqueId()).isIngame()) {
+
+                inventory.setItem(i, ItemStackCreator.f(player.getName(), "§f§l" + player.getName()));
+                i++;
+            }
         }
     }
 
@@ -67,8 +87,14 @@ public class TeleporterInventory implements DefinedInventory {
      */
     public ItemStack get(Player player) {
 
-        for(ItemStack itemStack : inventory.getContents())
-            if(itemStack.getItemMeta().getDisplayName().contains(player.getName())) return itemStack;
+        try {
+
+            for(ItemStack itemStack : inventory.getContents())
+                if(itemStack.getItemMeta().getDisplayName().contains(player.getName())) return itemStack;
+
+            return null;
+
+        } catch (Exception exc) {}
 
         return null;
     }

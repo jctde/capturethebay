@@ -1,11 +1,14 @@
 package de.obdachioser.capturethebay.listeners;
 
 import de.obdachioser.capturethebay.CaptureTheBay;
+import de.obdachioser.capturethebay.api.DefinedTeam;
 import de.obdachioser.capturethebay.cache.api.PlayerCache;
 import de.obdachioser.capturethebay.countdown.GameState;
 import de.obdachioser.capturethebay.enums.EnumPlayerState;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
@@ -18,27 +21,33 @@ import org.bukkit.event.entity.EntityDamageEvent;
  */
 public class PlayerDamageByPlayerListener implements Listener {
 
-    @EventHandler
+    @EventHandler (priority = EventPriority.HIGH)
     public void playerDamageByPlayer(EntityDamageByEntityEvent event) {
 
         if(event.getEntity() instanceof Player && event.getDamager() instanceof Player) {
 
-            PlayerCache playerCache = CaptureTheBay.getGameSession().getPlayerCacheCacheHandler().get(event.getEntity().getUniqueId());
-            PlayerCache damagerCache = CaptureTheBay.getGameSession().getPlayerCacheCacheHandler().get(event.getDamager().getUniqueId());
+            PlayerCache playerCache = CaptureTheBay.getGameSession().getPlayerCacheCacheHandler().get(((Player) event.getEntity()).getUniqueId());
+            PlayerCache damagerCache = CaptureTheBay.getGameSession().getPlayerCacheCacheHandler().get(((Player) event.getDamager()).getUniqueId());
 
-            if(damagerCache.getEnumPlayerState() == EnumPlayerState.SPECTATOR) {
+            Bukkit.broadcastMessage("p: " + playerCache.getCurrentTeam());
+            Bukkit.broadcastMessage("d: " + damagerCache.getCurrentTeam());
 
+            if(!damagerCache.isIngame()) {
+
+                Bukkit.broadcastMessage("is spect");
                 event.setCancelled(true);
-                return;
             }
 
-            if(damagerCache.getCurrentTeam() == playerCache.getCurrentTeam()) {
+            if(playerCache.getCurrentTeam() != null && damagerCache.getCurrentTeam() != null) {
 
-                event.setCancelled(true);
-                return;
+                if(((DefinedTeam) playerCache.getCurrentTeam()).getTeamDisplayName().equals(((DefinedTeam) damagerCache.getCurrentTeam()).getTeamDisplayName())) {
+
+                    Bukkit.broadcastMessage("is equals team");
+                    event.setCancelled(true);
+                }
             }
 
-            if(CaptureTheBay.getGameSession().getCurrentGameState() == GameState.INGAME)
+            if(CaptureTheBay.getGameSession().getCurrentGameState() == GameState.INGAME && !event.isCancelled())
                 event.setCancelled(false);
             else
                 event.setCancelled(true);

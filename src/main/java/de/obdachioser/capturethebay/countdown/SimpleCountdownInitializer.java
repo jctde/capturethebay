@@ -3,6 +3,8 @@ package de.obdachioser.capturethebay.countdown;
 import com.google.common.collect.Lists;
 import de.obdachioser.capturethebay.CaptureTheBay;
 import de.obdachioser.capturethebay.api.DefinedTeam;
+import de.obdachioser.capturethebay.api.Team;
+import de.obdachioser.capturethebay.cache.api.PlayerCache;
 import de.obdachioser.capturethebay.kits.Kit;
 import de.obdachioser.capturethebay.kits.Kits;
 import de.obdachioser.capturethebay.sessions.locations.Locations;
@@ -78,14 +80,10 @@ public class SimpleCountdownInitializer implements CountdownInitializer {
 
                 if(player.getOpenInventory() != null) player.closeInventory();
 
-                player.getInventory().clear();
                 player.playSound(player.getEyeLocation(), Sound.ITEM_PICKUP, 1F, 1F);
 
-                if(cache.getKitState().getCurrentKit() == null) {
-
-                    cache.getKitState().setCurrentKit(Kits.getDefaultKit().getKit());
-                    player.sendMessage(CaptureTheBay.getPrefix() + "§7Du hast das Kit " + cache.getKitState().getCurrentKit().displayName() + " §7ausgewählt.");
-                }
+                if(cache.getKitState().getCurrentKit() == null) cache.getKitState().setCurrentKit(Kits.getDefaultKit().getKit());
+                player.sendMessage(CaptureTheBay.getPrefix() + "§7Du hast das Kit " + cache.getKitState().getCurrentKit().displayName() + " §7ausgewählt.");
 
                 if(cache.getCurrentTeam() == null) {
 
@@ -106,11 +104,48 @@ public class SimpleCountdownInitializer implements CountdownInitializer {
 
         if(time == 0) {
 
+            List<String> noAliveTeams = Lists.newArrayList();
+
             Bukkit.broadcastMessage(CaptureTheBay.getPrefix() + "Alle Spieler werden teleportiert...");
+
+            for(Team team : CaptureTheBay.getGameSession().getTeams().all0()) {
+
+                Bukkit.broadcastMessage("TargTeam: " + ((DefinedTeam) team).getTeamDisplayName());
+
+                if(team.size() == 0) noAliveTeams.add(((DefinedTeam) team).getTeamDisplayName());
+            }
+
+            if(noAliveTeams.size() >= 2) {
+
+                Team team = CaptureTheBay.getGameSession().getTeams().getEmptiestTeam();
+                noAliveTeams.remove(((DefinedTeam) team).getTeamDisplayName());
+
+                Integer d = (Bukkit.getOnlinePlayers().size()/2);
+
+                for(Player player : Bukkit.getOnlinePlayers()) {
+
+                    if(d != 0) d--; else break;
+
+                    PlayerCache playerCache = CaptureTheBay.getGameSession().getPlayerCacheCacheHandler().get(player.getUniqueId());
+
+                    if(playerCache.getCurrentTeam() != null) playerCache.getCurrentTeam().removePlayer(player);
+
+                    playerCache.setCurrentTeam(team);
+                    playerCache.getCurrentTeam().addPlayer(player);
+
+                    player.sendMessage(CaptureTheBay.getPrefix() + "§7Du wurdest zum §eAusgleichen §7in ein anderes §eTeam §7hinzugefügt.");
+                }
+            }
+
+            for(String s : noAliveTeams) Bukkit.broadcastMessage(CaptureTheBay.getPrefix() + "§cTeam " + s + " §cspielt diese Runde nicht mit.");
 
             CaptureTheBay.getGameSession().getPlayerCacheCacheHandler().all((id, cache) -> {
 
                 Player player = Bukkit.getPlayer(id);
+
+                if(player.getOpenInventory() != null) player.closeInventory();
+
+                player.getInventory().clear();
 
                 player.teleport(Locations.getCurrentGameWorldConfiguration().getTeamLocations().get(cache.getCurrentTeam()));
                 player.playSound(player.getEyeLocation(), Sound.ENDERMAN_TELEPORT, 1F, 1F);

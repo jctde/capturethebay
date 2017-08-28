@@ -49,6 +49,15 @@ public class PlayerJoinListener implements Listener {
             event.getPlayer().sendMessage(CaptureTheBay.getPrefix() + "§cDu bist nun Spectator.");
             PlayerStates.setSpectator(event.getPlayer());
 
+            for(Player player : Bukkit.getOnlinePlayers()) {
+
+                if(playerCache.isIngame()) {
+
+                    player.hidePlayer(event.getPlayer());
+                    event.getPlayer().showPlayer(event.getPlayer());
+                }
+            }
+
         } else {
 
             event.getPlayer().getInventory().clear();
@@ -76,13 +85,18 @@ public class PlayerJoinListener implements Listener {
             CaptureTheBay.getGameSession().getScoreboardHandler().setReplacements(replacements);
             CaptureTheBay.getGameSession().getScoreboardHandler().sendScoreboard(event.getPlayer());
 
-            CaptureTheBay.getGameSession().getScoreboardHandler().sendTestScoreboard(event.getPlayer());
-
             event.getPlayer().getInventory().setArmorContents(new ItemStack[] {
                     null, null, null, ItemStackCreator.a(Material.CHAINMAIL_HELMET, "§bSchutzhelm")});
 
             event.getPlayer().getActivePotionEffects().clear();
+
+            for(Player player : Bukkit.getOnlinePlayers()) {
+                player.showPlayer(event.getPlayer());
+                event.getPlayer().showPlayer(event.getPlayer());
+            }
         }
+
+        CaptureTheBay.getGameSession().getScoreboardHandler().sendTestScoreboard(event.getPlayer());
 
         event.getPlayer().playSound(event.getPlayer().getEyeLocation(), Sound.ITEM_PICKUP, 1F, 1F);
 

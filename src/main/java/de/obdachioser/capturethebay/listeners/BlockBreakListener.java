@@ -1,6 +1,8 @@
 package de.obdachioser.capturethebay.listeners;
 
 import de.obdachioser.capturethebay.CaptureTheBay;
+import de.obdachioser.capturethebay.api.DefinedTeam;
+import de.obdachioser.capturethebay.api.Team;
 import de.obdachioser.capturethebay.cache.api.PlayerCache;
 import de.obdachioser.capturethebay.countdown.GameState;
 import de.obdachioser.capturethebay.enums.EnumPlayerState;
@@ -27,6 +29,22 @@ public class BlockBreakListener implements Listener {
     @EventHandler
     public void blockBreak(BlockBreakEvent event) {
 
+        event.getPlayer().updateInventory();
+
+        if(CaptureTheBay.getGameSession().getPlayerCacheCacheHandler().get(event.getPlayer().getUniqueId()).getEnumPlayerState() == EnumPlayerState.SPECTATOR) {
+
+            event.setCancelled(true);
+            return;
+        }
+
+        for(Team team : CaptureTheBay.getGameSession().getTeams().all0()) {
+
+            if(CaptureTheBay.getCurrentGameWorldConfiguration().getTeamLocations().get(team) == event.getBlock().getLocation()) {
+                event.getPlayer().sendMessage(CaptureTheBay.getPrefix()
+                        + "§cDu darfst den Spawnpoint von Team " + ((DefinedTeam) team).getTeamDisplayName() +" §cnicht abbauen1");
+            }
+        }
+
         if(CaptureTheBay.getGameSession().getCurrentGameState() == GameState.INGAME) {
 
             if(event.getBlock().getType() == Material.ENDER_CHEST) {
@@ -36,9 +54,6 @@ public class BlockBreakListener implements Listener {
             }
 
         } else
-            event.setCancelled(true);
-
-        if(CaptureTheBay.getGameSession().getPlayerCacheCacheHandler().get(event.getPlayer().getUniqueId()).getEnumPlayerState() == EnumPlayerState.SPECTATOR)
             event.setCancelled(true);
     }
 }
