@@ -104,7 +104,7 @@ public class SimpleCountdownInitializer implements CountdownInitializer {
 
         if(time == 0) {
 
-            List<String> noAliveTeams = Lists.newArrayList();
+            List<DefinedTeam> noAliveTeams = Lists.newArrayList();
 
             Bukkit.broadcastMessage(CaptureTheBay.getPrefix() + "Alle Spieler werden teleportiert...");
 
@@ -112,13 +112,13 @@ public class SimpleCountdownInitializer implements CountdownInitializer {
 
                 Bukkit.broadcastMessage("TargTeam: " + ((DefinedTeam) team).getTeamDisplayName());
 
-                if(team.size() == 0) noAliveTeams.add(((DefinedTeam) team).getTeamDisplayName());
+                if(team.size() == 0) noAliveTeams.add(((DefinedTeam) team));
             }
 
             if(noAliveTeams.size() >= 2) {
 
                 Team team = CaptureTheBay.getGameSession().getTeams().getEmptiestTeam();
-                noAliveTeams.remove(((DefinedTeam) team).getTeamDisplayName());
+                noAliveTeams.remove(((DefinedTeam) team));
 
                 Integer d = (Bukkit.getOnlinePlayers().size()/2);
 
@@ -137,7 +137,13 @@ public class SimpleCountdownInitializer implements CountdownInitializer {
                 }
             }
 
-            for(String s : noAliveTeams) Bukkit.broadcastMessage(CaptureTheBay.getPrefix() + "§cTeam " + s + " §cspielt diese Runde nicht mit.");
+            for(DefinedTeam definedTeam : noAliveTeams) {
+
+                definedTeam.setAlive(false);
+
+                Bukkit.broadcastMessage(CaptureTheBay.getPrefix() + "§cTeam "
+                            + definedTeam.getTeamDisplayName() + " §cspielt diese Runde nicht mit.");
+            }
 
             CaptureTheBay.getGameSession().getPlayerCacheCacheHandler().all((id, cache) -> {
 
